@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref, Ref, onMounted} from "vue";
+import {ref, Ref} from "vue";
 
 import TopoNavBar from "@/components/common/NavBar.vue";
 import TopoNavigationDrawers from "@/components/common/NavigationDrawers.vue";
@@ -9,8 +9,6 @@ const navDrawerToggle: Ref<boolean> = ref(false);
 const updateNavDrawer = (newValue: boolean) => {
   navDrawerToggle.value = newValue;
 };
-
-onMounted(() => {});
 </script>
 
 <template>

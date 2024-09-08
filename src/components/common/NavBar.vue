@@ -5,6 +5,7 @@ import {computed, ComputedRef} from "vue";
 import {useStore} from "vuex";
 
 import {AuthTypes} from "@/types/auth-types";
+import {AuthGetters} from "@/store/modules/auth";
 
 const props = defineProps({
   navDrawerToggle: {
@@ -16,11 +17,15 @@ const props = defineProps({
 const store = useStore();
 
 const isLoggedIn: ComputedRef<AuthTypes["isLoggedIn"]> = computed(() => {
-  return store.state.auth.isLoggedIn;
+  return store.getters[AuthGetters.isLoggedIn];
 });
 
 const currentUser: ComputedRef<AuthTypes["currentUser"]> = computed(() => {
-  return store.state.auth.currentUser;
+  return store.getters[AuthGetters.currentUser];
+});
+
+const isAnonymous: ComputedRef<AuthTypes["isLoggedIn"]> = computed(() => {
+  return store.getters[AuthGetters.isAnonymous];
 });
 
 const emit = defineEmits<{
@@ -46,7 +51,7 @@ const clickNavDrawerToggle = (): void => {
         </template>
       </div>
       <div class="right-gr">
-        <template v-if="!isLoggedIn">
+        <template v-if="isAnonymous">
           <router-link
             :to="{name: 'login'}"
             active-class="active"
@@ -65,7 +70,7 @@ const clickNavDrawerToggle = (): void => {
           </router-link>
         </template>
         <a
-          v-else
+          v-if="isLoggedIn"
           @click="clickNavDrawerToggle"
           :class="['account-data', {active: props.navDrawerToggle}]"
         >

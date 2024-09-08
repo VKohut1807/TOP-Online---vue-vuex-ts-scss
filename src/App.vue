@@ -1,6 +1,17 @@
 <script setup lang="ts">
+import {onMounted} from "vue";
 import TopoMainHeader from "@/components/common/Header.vue";
 import TopoMainFooter from "@/components/common/Footer.vue";
+
+import {useStore} from "vuex";
+
+import {AuthActions} from "@/store/modules/auth";
+
+const store = useStore();
+
+onMounted(() => {
+  store.dispatch(AuthActions.getCurrentUser);
+});
 </script>
 
 <template>

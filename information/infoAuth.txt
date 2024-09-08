@@ -1,1 +1,3 @@
-# login and registration - is used from the site https://demo.realworld.io/#/
+# auth - is used from the site https://demo.realworld.io/#/
+## login and registration - is used from the site https://conduit.productionready.io/api
+## getCurrentUser - is used from the site https://api.realworld.io/api
