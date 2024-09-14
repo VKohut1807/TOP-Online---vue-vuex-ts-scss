@@ -1,0 +1,6 @@
+# node version is used --- v22.3.0
+
+# auth - is used from the site --- https://demo.realworld.io/#/
+## login and registration - is used from the URL --- https://conduit.productionready.io/api
+## getCurrentUser - is used from the URL --- https://api.realworld.io/api
+## posts - is used from the URL --- https://api.realworld.io/api

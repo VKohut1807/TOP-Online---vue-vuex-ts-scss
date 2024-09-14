@@ -6,10 +6,10 @@ export const navLinks: Ref<LinksType[]> = ref([
     route: "home",
     title: "Home",
   },
-  // {
-  //   route: "home",
-  //   title: "Page 2",
-  // },
+  {
+    route: "global-posts",
+    title: "All Posts",
+  },
   // {
   //   route: "home",
   //   title: "Page 3",

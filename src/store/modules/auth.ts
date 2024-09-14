@@ -101,9 +101,9 @@ const mutations: MutationTree<AuthTypes> = {
   },
 };
 
-const actions: ActionTree<AuthTypes, any> = {
+const actions: ActionTree<AuthTypes, object> = {
   [AuthActions.register](
-    {commit, state}: ActionContext<AuthTypes, any>,
+    {commit, state}: ActionContext<AuthTypes, object>,
     credentials: UserType
   ) {
     return new Promise((resolve, reject) => {
@@ -127,7 +127,7 @@ const actions: ActionTree<AuthTypes, any> = {
   },
 
   [AuthActions.login](
-    {commit, state}: ActionContext<AuthTypes, any>,
+    {commit, state}: ActionContext<AuthTypes, object>,
     credentials: UserType
   ) {
     return new Promise((resolve, reject) => {
@@ -150,10 +150,7 @@ const actions: ActionTree<AuthTypes, any> = {
     });
   },
 
-  [AuthActions.getCurrentUser](
-    {commit, state}: ActionContext<AuthTypes, any>,
-    credentials: UserType
-  ) {
+  [AuthActions.getCurrentUser]({commit}: ActionContext<AuthTypes, object>) {
     return new Promise((resolve, reject) => {
       commit(AuthMutations.getCurrentUserStart);
 
