@@ -38,8 +38,8 @@ const clickNavDrawerToggle = (): void => {
 </script>
 
 <template>
-  <nav class="nav wrap">
-    <div class="header wrap-85">
+  <nav class="nav">
+    <div class="header wrapper">
       <router-link :to="{name: 'home'}" class="logo">
         <img src="@/assets/logo-transformed.webp" />
       </router-link>

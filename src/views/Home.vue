@@ -4,7 +4,7 @@ import TopoCard from "@/components/Card.vue";
 </script>
 
 <template>
-  <ul class="wrap-85 card-group">
+  <ul class="wrapper card-group">
     <li v-for="(cardEl, index) in cardData" :key="cardEl.index" class="card">
       <topo-card
         :card-data="cardEl"
@@ -18,8 +18,5 @@ import TopoCard from "@/components/Card.vue";
 .card-group {
   display: flex;
   flex-direction: column;
-
-  .card {
-  }
 }
 </style>

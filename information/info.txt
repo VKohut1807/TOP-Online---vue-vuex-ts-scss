@@ -4,3 +4,5 @@
 ## login and registration - is used from the URL --- https://conduit.productionready.io/api
 ## getCurrentUser - is used from the URL --- https://api.realworld.io/api
 ## posts - is used from the URL --- https://api.realworld.io/api
+
+# icons from the site --- https://pictogrammers.com/library/mdi/

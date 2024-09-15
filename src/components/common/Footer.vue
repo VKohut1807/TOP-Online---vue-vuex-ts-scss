@@ -4,7 +4,7 @@ import {socialLinks, pageLinks} from "@/data/footerData";
 
 <template>
   <footer class="footer">
-    <div class="sections wrap-85">
+    <div class="sections wrapper">
       <div class="section-left">
         <router-link :to="{name: 'home'}" class="logo">
           <img src="@/assets/logo-transformed.webp" />

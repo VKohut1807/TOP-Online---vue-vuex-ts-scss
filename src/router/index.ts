@@ -27,6 +27,41 @@ const router = createRouter({
       name: "global-posts",
       component: GlobalPosts,
     },
+    {
+      path: "/posts/:slug",
+      name: "posts",
+      component: GlobalPosts,
+    },
+    {
+      path: "/posts/new",
+      name: "createPost",
+      component: GlobalPosts,
+    },
+    {
+      path: "/posts/:slug/edit",
+      name: "editPost",
+      component: GlobalPosts,
+    },
+    {
+      path: "/tags/:slug",
+      name: "tag",
+      component: GlobalPosts,
+    },
+    {
+      path: "/settings",
+      name: "settings",
+      component: GlobalPosts,
+    },
+    {
+      path: "/profiles/:slug",
+      name: "userProfile",
+      component: GlobalPosts,
+    },
+    {
+      path: "/profiles/:slug/favorites",
+      name: "userPostsFavorites",
+      component: GlobalPosts,
+    },
   ],
 });
 
