@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import {onMounted, computed, ComputedRef, reactive} from "vue";
+import {onMounted, computed, ComputedRef, reactive, watch} from "vue";
 import TopoPagination from "@/components/Pagination.vue";
 
 import {useStore} from "vuex";
+import {useRoute} from "vue-router";
+import queryString from "query-string";
 
 import {PaginationTypes} from "@/types/pagination-types";
 import {PostsActions} from "@/store/modules/posts";
 import {ModuleTypes} from "@/types/module-types";
 
 const store = useStore();
+const route = useRoute();
 
 const props = defineProps({
   apiUrl: {
@@ -17,11 +20,42 @@ const props = defineProps({
   },
 });
 
-const paginationParams: PaginationTypes = reactive({
-  total: 100,
-  limit: 10,
-  currentPage: 5,
-  url: "/global-posts/",
+const paginationParams: Pick<
+  PaginationTypes,
+  "limitPerPage" | "globalPostsUrl"
+> = reactive({
+  limitPerPage: 10,
+  globalPostsUrl: "/global-posts/",
+});
+
+const currentPage: ComputedRef<PaginationTypes["currentPage"]> = computed(
+  () => {
+    return Number(route.query.page) || 1;
+  }
+);
+
+const articlesCount: ComputedRef<PaginationTypes["articlesCount"]> = computed(
+  () => {
+    return store?.state?.posts?.data?.articlesCount;
+  }
+);
+
+const offset: ComputedRef<PaginationTypes["offset"]> = computed(() => {
+  return (
+    currentPage.value * paginationParams.limitPerPage -
+    paginationParams.limitPerPage
+  );
+});
+
+const apiUrlWithParams: ComputedRef<string> = computed(() => {
+  const parsedUrl = queryString.parseUrl(props.apiUrl);
+  const stringifidParams = queryString.stringify({
+    limit: paginationParams.limitPerPage,
+    offset: offset.value,
+    ...parsedUrl.query,
+  });
+
+  return `${parsedUrl.url}?${stringifidParams}`;
 });
 
 const isLoading: ComputedRef<ModuleTypes["isLoading"]> = computed(() => {
@@ -34,8 +68,18 @@ const error: ComputedRef<ModuleTypes["error"]> = computed(() => {
   return store.state.posts.error;
 });
 
+watch(currentPage, (newPage: number, oldPage: number): void => {
+  if (newPage !== oldPage) fetchPosts();
+});
+
+const fetchPosts = async (): Promise<void> => {
+  return await store.dispatch(PostsActions.getPosts, {
+    apiUrl: apiUrlWithParams.value,
+  });
+};
+
 onMounted(() => {
-  store.dispatch(PostsActions.getPosts, {apiUrl: props.apiUrl});
+  fetchPosts();
 });
 </script>
 
@@ -101,11 +145,13 @@ onMounted(() => {
       </div>
     </div>
     <topo-pagination
-      :url="paginationParams.url"
-      :limit="paginationParams.limit"
-      :current-page="paginationParams.currentPage"
-      :total="paginationParams.total"
+      v-if="articlesCount"
+      :url="paginationParams.globalPostsUrl"
+      :limit-per-page="paginationParams.limitPerPage"
+      :current-page="currentPage"
+      :articles-count="articlesCount"
     ></topo-pagination>
+
     <div v-if="error" class="error">ERROR...</div>
   </div>
 </template>

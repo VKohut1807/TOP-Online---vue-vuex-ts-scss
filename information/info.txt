@@ -6,3 +6,5 @@
 ## posts - is used from the URL --- https://api.realworld.io/api
 
 # icons from the site --- https://pictogrammers.com/library/mdi/
+
+# library used for parsing and stringing URL query strings --- "query-string"
