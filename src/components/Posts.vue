@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import {onMounted, computed, ComputedRef} from "vue";
+import {onMounted, computed, ComputedRef, reactive} from "vue";
+import TopoPagination from "@/components/Pagination.vue";
+
 import {useStore} from "vuex";
 
+import {PaginationTypes} from "@/types/pagination-types";
 import {PostsActions} from "@/store/modules/posts";
 import {ModuleTypes} from "@/types/module-types";
 
@@ -12,6 +15,13 @@ const props = defineProps({
     type: String,
     required: true,
   },
+});
+
+const paginationParams: PaginationTypes = reactive({
+  total: 100,
+  limit: 10,
+  currentPage: 5,
+  url: "/global-posts/",
 });
 
 const isLoading: ComputedRef<ModuleTypes["isLoading"]> = computed(() => {
@@ -90,6 +100,12 @@ onMounted(() => {
         </div>
       </div>
     </div>
+    <topo-pagination
+      :url="paginationParams.url"
+      :limit="paginationParams.limit"
+      :current-page="paginationParams.currentPage"
+      :total="paginationParams.total"
+    ></topo-pagination>
     <div v-if="error" class="error">ERROR...</div>
   </div>
 </template>
