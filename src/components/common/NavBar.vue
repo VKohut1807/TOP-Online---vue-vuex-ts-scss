@@ -44,11 +44,14 @@ const clickNavDrawerToggle = (): void => {
         <img src="@/assets/logo-transformed.webp" />
       </router-link>
       <div class="links">
-        <template v-for="({route, title}, idx) in navLinks" :key="idx">
-          <router-link :to="{name: route}" active-class="active" class="link">{{
-            title
-          }}</router-link>
-        </template>
+        <router-link
+          v-for="({route, title}, idx) in navLinks"
+          :key="idx"
+          :to="{name: route}"
+          active-class="active"
+          class="link"
+          >{{ title }}</router-link
+        >
       </div>
       <div class="right-gr">
         <template v-if="isAnonymous">

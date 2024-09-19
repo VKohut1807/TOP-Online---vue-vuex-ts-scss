@@ -85,8 +85,8 @@ onMounted(() => {
 
 <template>
   <div class="posts-page">
-    <div class="wrapper"></div>
     <div v-if="isLoading" class="loading">Loading...</div>
+    <div v-if="error" class="error">ERROR...</div>
     <div v-if="posts" class="posts-group">
       <div v-for="(post, index) in posts.articles" :key="index" class="post">
         <div class="top-group">
@@ -151,8 +151,6 @@ onMounted(() => {
       :current-page="currentPage"
       :articles-count="articlesCount"
     ></topo-pagination>
-
-    <div v-if="error" class="error">ERROR...</div>
   </div>
 </template>
 

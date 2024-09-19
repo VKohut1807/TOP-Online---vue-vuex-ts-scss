@@ -6,23 +6,23 @@ import {UserType, ExtendedUserType} from "@/types/user-types";
 import {setItem} from "@/helpers/persistanceStorage";
 
 export enum AuthMutations {
-  registerStart = "[auth] registerStart",
-  registerSuccess = "[auth] registerSuccess",
-  registerFailure = "[auth] registerFailure",
+  registerStart = "[auth] register Start",
+  registerSuccess = "[auth] register Success",
+  registerFailure = "[auth] register Failure",
 
-  loginStart = "[auth] loginStart",
-  loginSuccess = "[auth] loginSuccess",
-  loginFailure = "[auth] loginFailure",
+  loginStart = "[auth] login Start",
+  loginSuccess = "[auth] login Success",
+  loginFailure = "[auth] login Failure",
 
-  getCurrentUserStart = "[auth] getCurrentUserStart",
-  getCurrentUserSuccess = "[auth] getCurrentUserSuccess",
-  getCurrentUserFailure = "[auth] getCurrentUserFailure",
+  getCurrentUserStart = "[auth] get Current User Start",
+  getCurrentUserSuccess = "[auth] get Current User Success",
+  getCurrentUserFailure = "[auth] get Current User Failure",
 }
 
 export enum AuthActions {
   register = "[auth] register",
   login = "[auth] login",
-  getCurrentUser = "[auth] getCurrentUser",
+  getCurrentUser = "[auth] get Current User",
 }
 
 export enum AuthGetters {
