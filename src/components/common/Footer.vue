@@ -20,9 +20,9 @@ import {socialLinks, pageLinks} from "@/data/footerData";
         </ul>
         <ul class="social">
           <li v-for="({route, title, icon}, idx) in socialLinks" :key="idx">
-            <router-link :to="{name: route}"
-              ><mdicon :name="icon" />{{ title }}</router-link
-            >
+            <router-link :to="{name: route}">
+              <mdicon :name="icon" />{{ title }}
+            </router-link>
           </li>
         </ul>
       </div>

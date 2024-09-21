@@ -27,7 +27,7 @@ const apiUrlPopularTags: Ref<string> = ref("/tags");
   .row {
     position: relative;
     display: grid;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 75% auto;
     gap: 1rem;
   }
 }

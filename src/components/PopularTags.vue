@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {onMounted, computed, ComputedRef} from "vue";
+import TopoLoading from "@/components/Loading.vue";
+import TopoErrorMessage from "@/components/ErrorMessage.vue";
 
 import {useStore} from "vuex";
 
@@ -34,8 +36,10 @@ onMounted(() => {
 
 <template>
   <div class="popular-tags-block">
-    <div v-if="isLoading" class="loading">Loading...</div>
-    <div v-if="error" class="error">ERROR...</div>
+    <topo-loading v-if="isLoading" />
+
+    <topo-error-message v-if="error" :error-message="error" />
+
     <div v-if="popularTags" class="popular-tags">
       <h3>Popular Tags</h3>
       <div class="group">

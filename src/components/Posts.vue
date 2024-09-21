@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {onMounted, computed, ComputedRef, reactive, watch} from "vue";
 import TopoPagination from "@/components/Pagination.vue";
+import TopoLoading from "@/components/Loading.vue";
+import TopoErrorMessage from "@/components/ErrorMessage.vue";
 
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
@@ -85,8 +87,10 @@ onMounted(() => {
 
 <template>
   <div class="posts-page">
-    <div v-if="isLoading" class="loading">Loading...</div>
-    <div v-if="error" class="error">ERROR...</div>
+    <topo-loading v-if="isLoading" />
+
+    <topo-error-message v-if="error" :error-message="error" />
+
     <div v-if="posts" class="posts-group">
       <div v-for="(post, index) in posts.articles" :key="index" class="post">
         <div class="top-group">
@@ -158,10 +162,6 @@ onMounted(() => {
 @import "@scss/config/config.scss";
 
 .posts-page {
-  .loading {
-    color: red;
-  }
-
   .posts-group {
     display: flex;
     flex-direction: column;
@@ -300,10 +300,6 @@ onMounted(() => {
         }
       }
     }
-  }
-
-  .error {
-    color: red;
   }
 }
 </style>
