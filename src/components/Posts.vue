@@ -180,6 +180,11 @@ onMounted(() => {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        gap: 0.5rem;
+
+        @include break("xs") {
+          flex-wrap: wrap;
+        }
 
         .info-box {
           display: flex;
@@ -245,6 +250,10 @@ onMounted(() => {
           cursor: pointer;
           font-size: 1.25rem;
           color: $primary;
+
+          @include break("xs") {
+            margin-left: auto;
+          }
         }
       }
 
@@ -281,7 +290,8 @@ onMounted(() => {
         .tag-list {
           display: flex;
           flex-direction: row;
-          gap: 1rem;
+          flex-wrap: wrap;
+          gap: 0.5rem;
 
           .tag {
             border: 1px solid $third_90;

@@ -27,6 +27,10 @@ onMounted(() => {
 <style lang="scss">
 @import "@scss/config/config.scss";
 
+// * {
+//   outline: 1px solid red;
+// }
+
 #app {
   background-color: $secondary_10;
   min-height: 100vh;

@@ -47,6 +47,7 @@ const pages: ComputedRef<number[]> = computed(() => {
 .pagination {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 0.5rem;
   padding-top: 3rem;
 
