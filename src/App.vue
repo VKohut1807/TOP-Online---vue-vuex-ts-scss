@@ -2,6 +2,7 @@
 import {onMounted} from "vue";
 import TopoMainHeader from "@/components/common/Header.vue";
 import TopoMainFooter from "@/components/common/Footer.vue";
+import TopoBreadcrumbs from "@/components/common/Breadcrumbs.vue";
 
 import {useStore} from "vuex";
 
@@ -16,6 +17,7 @@ onMounted(() => {
 
 <template>
   <topo-main-header />
+  <topo-breadcrumbs />
   <main>
     <router-view />
   </main>

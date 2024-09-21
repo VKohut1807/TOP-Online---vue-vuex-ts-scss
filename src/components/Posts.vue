@@ -158,8 +158,6 @@ onMounted(() => {
 @import "@scss/config/config.scss";
 
 .posts-page {
-  margin-top: 3rem;
-
   .loading {
     color: red;
   }

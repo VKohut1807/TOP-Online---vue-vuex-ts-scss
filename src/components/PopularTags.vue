@@ -58,7 +58,6 @@ onMounted(() => {
 .popular-tags-block {
   position: sticky;
   top: 7rem;
-  margin-top: 3rem;
   height: fit-content;
   background-color: $third_40;
   padding: 0.75rem;
