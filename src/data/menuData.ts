@@ -10,10 +10,6 @@ export const navLinks: Ref<LinksType[]> = ref([
     route: "global-posts",
     title: "All Posts",
   },
-  {
-    route: "my-followed-posts",
-    title: "My Followed Posts",
-  },
 ]);
 
 export const navigationDrawers: Ref<NavLinksType[]> = ref([

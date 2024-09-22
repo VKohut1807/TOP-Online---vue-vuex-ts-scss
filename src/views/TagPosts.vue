@@ -5,13 +5,19 @@ import {useRoute} from "vue-router";
 
 import TopoPosts from "@/components/Posts.vue";
 import TopoPopularTags from "@/components/PopularTags.vue";
+import TopoTabs from "@/components/Tabs.vue";
 
 import {baseURL} from "@/data/baseURL";
 
 const route = useRoute();
 
+const tagName: ComputedRef<string> = computed(() => {
+  const slug = route.params.slug;
+  return Array.isArray(slug) ? slug[0] : slug ?? "";
+});
+
 const apiUrl: ComputedRef<string> = computed(() => {
-  return `/articles?tag=${route?.params?.slug}`;
+  return `/articles?tag=${tagName}`;
 });
 const apiUrlPopularTags: Ref<string> = ref("/tags");
 </script>
@@ -19,6 +25,7 @@ const apiUrlPopularTags: Ref<string> = ref("/tags");
 <template>
   <section id="tag-posts" class="tag-posts">
     <div class="wrapper">
+      <topo-tabs :tag-name="tagName" />
       <div class="row">
         <topo-posts :api-url="baseURL.posts + apiUrl" />
 

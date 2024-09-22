@@ -31,6 +31,12 @@ export const breadcrumbsConfig: Record<string, Breadcrumbs[]> = {
   MyFollowedPosts: [
     {title: "Home", path: "/", name: "home", icon: "HomeCircleOutline"},
     {
+      title: "All Posts",
+      path: "/global-posts",
+      name: "global-posts",
+      icon: "BallotOutline",
+    },
+    {
       title: "My Followed Posts",
       path: "/my-followed-posts",
       name: "my-followed-posts",

@@ -3,6 +3,7 @@ import {ref, Ref} from "vue";
 
 import TopoPosts from "@/components/Posts.vue";
 import TopoPopularTags from "@/components/PopularTags.vue";
+import TopoTabs from "@/components/Tabs.vue";
 
 import {baseURL} from "@/data/baseURL";
 
@@ -13,6 +14,7 @@ const apiUrlPopularTags: Ref<string> = ref("/tags");
 <template>
   <section id="global-posts" class="global-posts">
     <div class="wrapper">
+      <topo-tabs />
       <div class="row">
         <topo-posts :api-url="baseURL.posts + apiUrl" />
 
