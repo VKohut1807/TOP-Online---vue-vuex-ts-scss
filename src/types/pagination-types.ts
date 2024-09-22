@@ -1,5 +1,5 @@
 export type PaginationTypes = {
-  articlesCount: number;
+  postsCount: number;
   limitPerPage: number;
   currentPage: number;
   globalPostsUrl: string;

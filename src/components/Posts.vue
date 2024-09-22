@@ -36,11 +36,9 @@ const currentPage: ComputedRef<PaginationTypes["currentPage"]> = computed(
   }
 );
 
-const articlesCount: ComputedRef<PaginationTypes["articlesCount"]> = computed(
-  () => {
-    return store?.state?.posts?.data?.articlesCount;
-  }
-);
+const postsCount: ComputedRef<PaginationTypes["postsCount"]> = computed(() => {
+  return store?.state?.posts?.data?.articlesCount;
+});
 
 const offset: ComputedRef<PaginationTypes["offset"]> = computed(() => {
   return (
@@ -148,12 +146,14 @@ onMounted(() => {
         </div>
       </div>
     </div>
+    <div v-if="!isLoading && postsCount <= 0">No posts are here... yet.</div>
+
     <topo-pagination
-      v-if="articlesCount"
+      v-if="postsCount"
       :url="paginationParams.globalPostsUrl"
       :limit-per-page="paginationParams.limitPerPage"
       :current-page="currentPage"
-      :articles-count="articlesCount"
+      :posts-count="postsCount"
     ></topo-pagination>
   </div>
 </template>

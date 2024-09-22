@@ -28,4 +28,28 @@ export const breadcrumbsConfig: Record<string, Breadcrumbs[]> = {
       icon: "BallotOutline",
     },
   ],
+  MyFollowedPosts: [
+    {title: "Home", path: "/", name: "home", icon: "HomeCircleOutline"},
+    {
+      title: "My Followed Posts",
+      path: "/my-followed-posts",
+      name: "my-followed-posts",
+      icon: "AccountTagOutline",
+    },
+  ],
+  TagPosts: [
+    {title: "Home", path: "/", name: "home", icon: "HomeCircleOutline"},
+    {
+      title: "All Posts",
+      path: "/global-posts",
+      name: "global-posts",
+      icon: "BallotOutline",
+    },
+    {
+      title: "Tag: SLUG",
+      path: "/tags/:slug",
+      name: "tag",
+      icon: "TagMultiple",
+    },
+  ],
 };

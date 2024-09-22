@@ -3,6 +3,8 @@ import Home from "@/views/Home.vue";
 import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import GlobalPosts from "@/views/GlobalPosts.vue";
+import MyFollowedPosts from "@/views/MyFollowedPosts.vue";
+import TagPosts from "@/views/TagPosts.vue";
 import {breadcrumbsConfig} from "@/data/breadcrumbs";
 
 const router = createRouter({
@@ -13,7 +15,7 @@ const router = createRouter({
       name: "home",
       component: Home,
       meta: {
-        breadcramb: breadcrumbsConfig.home,
+        breadcrumb: breadcrumbsConfig.home,
       },
     },
     {
@@ -21,7 +23,7 @@ const router = createRouter({
       name: "register",
       component: Register,
       meta: {
-        breadcramb: breadcrumbsConfig.register,
+        breadcrumb: breadcrumbsConfig.register,
       },
     },
     {
@@ -29,7 +31,7 @@ const router = createRouter({
       name: "login",
       component: Login,
       meta: {
-        breadcramb: breadcrumbsConfig.login,
+        breadcrumb: breadcrumbsConfig.login,
       },
     },
     {
@@ -37,7 +39,15 @@ const router = createRouter({
       name: "global-posts",
       component: GlobalPosts,
       meta: {
-        breadcramb: breadcrumbsConfig.globalPosts,
+        breadcrumb: breadcrumbsConfig.globalPosts,
+      },
+    },
+    {
+      path: "/my-followed-posts",
+      name: "my-followed-posts",
+      component: MyFollowedPosts,
+      meta: {
+        breadcrumb: breadcrumbsConfig.MyFollowedPosts,
       },
     },
     {
@@ -58,7 +68,10 @@ const router = createRouter({
     {
       path: "/tags/:slug",
       name: "tag",
-      component: GlobalPosts,
+      component: TagPosts,
+      meta: {
+        breadcrumb: breadcrumbsConfig.TagPosts,
+      },
     },
     {
       path: "/settings",

@@ -15,14 +15,14 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  articlesCount: {
+  postsCount: {
     type: Number,
     required: true,
   },
 });
 
 const pages: ComputedRef<number[]> = computed(() => {
-  const pagesCount = Math.ceil(props.articlesCount / props.limitPerPage);
+  const pagesCount = Math.ceil(props.postsCount / props.limitPerPage);
   return range(1, pagesCount);
 });
 </script>

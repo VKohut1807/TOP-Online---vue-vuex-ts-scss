@@ -6,7 +6,7 @@ import TopoPopularTags from "@/components/PopularTags.vue";
 
 import {baseURL} from "@/data/baseURL";
 
-const apiUrl: Ref<string> = ref("/articles");
+const apiUrl: Ref<string> = ref("/articles/feed");
 const apiUrlPopularTags: Ref<string> = ref("/tags");
 </script>
 
