@@ -17,7 +17,7 @@ const tagName: ComputedRef<string> = computed(() => {
 });
 
 const apiUrl: ComputedRef<string> = computed(() => {
-  return `/articles?tag=${tagName}`;
+  return `/articles?tag=${tagName.value}`;
 });
 const apiUrlPopularTags: Ref<string> = ref("/tags");
 </script>
