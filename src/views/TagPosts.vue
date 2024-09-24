@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {ref, Ref} from "vue";
-import {computed, ComputedRef} from "vue";
+import {ref, Ref, computed, ComputedRef} from "vue";
 import {useRoute} from "vue-router";
 
 import TopoPosts from "@/components/Posts.vue";

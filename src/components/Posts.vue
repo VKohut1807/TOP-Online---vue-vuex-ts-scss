@@ -113,7 +113,9 @@ onMounted(() => {
               >
                 {{ post.author.username }}
               </router-link>
-              <h6>{{ post.createdAt }}</h6>
+              <h6>
+                {{ new Date(post.createdAt).toLocaleDateString("en-GB") }}
+              </h6>
             </div>
           </div>
           <div class="like">

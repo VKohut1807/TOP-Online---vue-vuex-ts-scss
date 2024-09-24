@@ -61,7 +61,10 @@ const actions: ActionTree<ModuleTypes, object> = {
             errors?.response?.data?.errors
           );
 
-          console.log("ERRORS GET POSTS", errors?.response?.data?.errors);
+          console.log(
+            "ERRORS GET POPULAR TAGS",
+            errors?.response?.data?.errors
+          );
         });
     });
   },
