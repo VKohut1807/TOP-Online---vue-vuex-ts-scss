@@ -1,7 +1,7 @@
 import {MutationTree, ActionTree, ActionContext} from "vuex";
 import {AxiosError} from "axios";
-import popularTags from "@/api/popularTags";
-import {ModuleTypes} from "@/types/module-types";
+import popularTagsApi from "@/api/popularTags";
+import {ModuleType} from "@/types/module-types";
 
 export enum PopularTagsMutations {
   getPopularTagsStart = "[tags] get Popular Tags Start",
@@ -13,38 +13,38 @@ export enum PopularTagsActions {
   getPopularTags = "[tags] Get Popular Tags",
 }
 
-const state: ModuleTypes = {
+const state: ModuleType = {
   data: null,
   isLoading: false,
   error: null,
 };
 
-const mutations: MutationTree<ModuleTypes> = {
-  [PopularTagsMutations.getPopularTagsStart](state: ModuleTypes) {
+const mutations: MutationTree<ModuleType> = {
+  [PopularTagsMutations.getPopularTagsStart](state: ModuleType) {
     state.isLoading = true;
     state.data = null;
   },
   [PopularTagsMutations.getPopularTagsSuccess](
-    state: ModuleTypes,
+    state: ModuleType,
     payload: object
   ) {
     state.isLoading = false;
     state.data = payload;
   },
-  [PopularTagsMutations.getPopularTagsFailure](state: ModuleTypes) {
+  [PopularTagsMutations.getPopularTagsFailure](state: ModuleType) {
     state.isLoading = false;
   },
 };
 
-const actions: ActionTree<ModuleTypes, object> = {
+const actions: ActionTree<ModuleType, object> = {
   [PopularTagsActions.getPopularTags](
-    {commit, state}: ActionContext<ModuleTypes, object>,
+    {commit, state}: ActionContext<ModuleType, object>,
     {apiUrl}: {apiUrl: string}
   ) {
     return new Promise((resolve, reject) => {
       commit(PopularTagsMutations.getPopularTagsStart);
 
-      popularTags
+      popularTagsApi
         .getPopularTags(apiUrl)
         .then((response) => {
           commit(

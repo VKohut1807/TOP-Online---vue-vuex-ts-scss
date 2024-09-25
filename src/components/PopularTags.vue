@@ -6,7 +6,7 @@ import TopoErrorMessage from "@/components/ErrorMessage.vue";
 import {useStore} from "vuex";
 
 import {PopularTagsActions} from "@/store/modules/popularTags";
-import {ModuleTypes} from "@/types/module-types";
+import {ModuleType} from "@/types/module-types";
 
 const store = useStore();
 
@@ -17,13 +17,13 @@ const props = defineProps({
   },
 });
 
-const isLoading: ComputedRef<ModuleTypes["isLoading"]> = computed(() => {
+const isLoading: ComputedRef<ModuleType["isLoading"]> = computed(() => {
   return store.state.popularTags.isLoading;
 });
-const popularTags: ComputedRef<ModuleTypes["data"]> = computed(() => {
+const popularTags: ComputedRef<ModuleType["data"]> = computed(() => {
   return store.state.popularTags.data;
 });
-const error: ComputedRef<ModuleTypes["error"]> = computed(() => {
+const error: ComputedRef<ModuleType["error"]> = computed(() => {
   return store.state.popularTags.error;
 });
 

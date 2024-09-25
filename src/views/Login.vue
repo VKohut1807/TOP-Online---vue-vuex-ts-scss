@@ -7,7 +7,7 @@ import {AuthTypes} from "@/types/auth-types";
 import {UserType} from "@/types/user-types";
 import {AuthActions} from "@/store/modules/auth";
 
-import McValidationErrors from "@/components/ValidationErrors.vue";
+import TopoValidationErrors from "@/components/ValidationErrors.vue";
 
 const store = useStore();
 const router = useRouter();
@@ -30,9 +30,9 @@ const user: UserType = reactive({
 });
 
 const onSubmit = (): void => {
-  store.dispatch(AuthActions.login, user as UserType).then(() => {
-    router.push({name: "home"});
-  });
+  store
+    .dispatch(AuthActions.login, user as UserType)
+    .then(() => router.push({name: "posts", params: {slug: "awe-3474"}}));
 };
 </script>
 
@@ -45,7 +45,7 @@ const onSubmit = (): void => {
           Need an account?
         </router-link>
 
-        <mc-validation-errors
+        <topo-validation-errors
           v-if="validationErrors"
           :validation-errors="validationErrors"
         />

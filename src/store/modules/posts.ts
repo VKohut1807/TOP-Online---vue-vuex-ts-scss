@@ -1,7 +1,7 @@
 import {MutationTree, ActionTree, ActionContext} from "vuex";
 import {AxiosError} from "axios";
 import postsApi from "@/api/posts";
-import {ModuleTypes} from "@/types/module-types";
+import {ModuleType} from "@/types/module-types";
 
 export enum PostsMutations {
   getPostsStart = "[posts] get Posts Start",
@@ -13,32 +13,32 @@ export enum PostsActions {
   getPosts = "[posts] Get Posts",
 }
 
-const state: ModuleTypes = {
+const state: ModuleType = {
   data: null,
   isLoading: false,
   error: null,
 };
 
-const mutations: MutationTree<ModuleTypes> = {
-  [PostsMutations.getPostsStart](state: ModuleTypes) {
+const mutations: MutationTree<ModuleType> = {
+  [PostsMutations.getPostsStart](state: ModuleType) {
     state.isLoading = true;
     state.data = null;
   },
-  [PostsMutations.getPostsSuccess](state: ModuleTypes, payload: object) {
+  [PostsMutations.getPostsSuccess](state: ModuleType, payload: object) {
     state.isLoading = false;
     state.data = payload;
   },
   [PostsMutations.getPostsFailure](
-    state: ModuleTypes,
-    payload: ModuleTypes["error"]
+    state: ModuleType,
+    payload: ModuleType["error"]
   ) {
     state.isLoading = false;
   },
 };
 
-const actions: ActionTree<ModuleTypes, object> = {
+const actions: ActionTree<ModuleType, object> = {
   [PostsActions.getPosts](
-    {commit, state}: ActionContext<ModuleTypes, object>,
+    {commit, state}: ActionContext<ModuleType, object>,
     {apiUrl}: {apiUrl: string}
   ) {
     return new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
 import {Ref, ref} from "vue";
-import {LinksType, NavLinksType} from "@/types/links-types";
+import {LinksType} from "@/types/links-types";
 
 export const navLinks: Ref<LinksType[]> = ref([
   {
@@ -12,37 +12,13 @@ export const navLinks: Ref<LinksType[]> = ref([
   },
 ]);
 
-export const navigationDrawers: Ref<NavLinksType[]> = ref([
-  {
-    title: "Dashboard",
-    icon: "HomeCircleOutline",
-  },
-  {
-    title: "Images",
-    icon: "ImageSearchOutline",
-  },
-  {
-    title: "Files",
-    icon: "FileDocumentOutline",
-  },
-  {
-    title: "Games",
-    icon: "GamepadVariantOutline",
-  },
-  {
-    title: "Books",
-    icon: "BookOpenVariantOutline",
-  },
-  {
-    title: "Notifications",
-    icon: "BellRingOutline",
-  },
-  {
-    title: "Settings",
-    icon: "CogOutline",
-  },
-  {
-    title: "Profile",
-    icon: "AccountCircleOutline",
-  },
+export const navigationDrawers: Ref<LinksType[]> = ref([
+  {route: "home", title: "Dashboard", icon: "HomeCircleOutline"},
+  {route: "home", title: "Images", icon: "ImageSearchOutline"},
+  {route: "createPost", title: "Create Post", icon: "Post"},
+  {route: "home", title: "Games", icon: "GamepadVariantOutline"},
+  {route: "home", title: "Books", icon: "BookOpenVariantOutline"},
+  {route: "home", title: "Notifications", icon: "BellRingOutline"},
+  {route: "home", title: "Settings", icon: "CogOutline"},
+  {route: "home", title: "Profile", icon: "AccountCircleOutline"},
 ]);

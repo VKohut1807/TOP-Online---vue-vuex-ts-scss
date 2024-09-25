@@ -12,11 +12,11 @@ const props = defineProps({
 <template>
   <nav class="nav">
     <ul :class="['nav-drawer', {active: props.navDrawerToggle}]">
-      <li v-for="({title, icon}, idx) in navigationDrawers" :key="idx">
-        <a href="#">
+      <li v-for="({title, route, icon}, idx) in navigationDrawers" :key="idx">
+        <router-link :to="{name: route}" class="tag">
           <mdicon :name="icon" />
           <span class="text">{{ title }}</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </nav>

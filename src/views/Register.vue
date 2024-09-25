@@ -7,7 +7,7 @@ import {AuthTypes} from "@/types/auth-types";
 import {UserType} from "@/types/user-types";
 import {AuthActions} from "@/store/modules/auth";
 
-import McValidationErrors from "@/components/ValidationErrors.vue";
+import TopoValidationErrors from "@/components/ValidationErrors.vue";
 
 const store = useStore();
 const router = useRouter();
@@ -46,7 +46,7 @@ const onSubmit = (): void => {
           Have an account?
         </router-link>
 
-        <mc-validation-errors
+        <topo-validation-errors
           v-if="validationErrors"
           :validation-errors="validationErrors"
         />

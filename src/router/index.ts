@@ -6,6 +6,7 @@ import GlobalPosts from "@/views/GlobalPosts.vue";
 import MyFollowedPosts from "@/views/MyFollowedPosts.vue";
 import TagPosts from "@/views/TagPosts.vue";
 import Post from "@/views/Post.vue";
+import CreatePost from "@/views/CreatePost.vue";
 import {breadcrumbsConfig} from "@/data/breadcrumbs";
 
 const router = createRouter({
@@ -62,7 +63,10 @@ const router = createRouter({
     {
       path: "/posts/new",
       name: "createPost",
-      component: GlobalPosts,
+      component: CreatePost,
+      meta: {
+        breadcrumb: breadcrumbsConfig.CreatePost,
+      },
     },
     {
       path: "/posts/:slug/edit",

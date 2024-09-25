@@ -2,14 +2,19 @@
 import {onMounted, computed, ComputedRef} from "vue";
 import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
+import TopoTagsList from "@/components/TagsList.vue";
+import TopoAuthorInfoBox from "@/components/AuthorInfoBox.vue";
 
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useStore} from "vuex";
 
-import {ModuleTypes} from "@/types/module-types";
+import {ModuleType} from "@/types/module-types";
 import {PostActions} from "@/store/modules/post";
+import {AuthGetters} from "@/store/modules/auth";
+import {UserType} from "@/types/user-types";
 
 const route = useRoute();
+const router = useRouter();
 const store = useStore();
 
 const postSlug: ComputedRef<string> = computed(() => {
@@ -17,17 +22,34 @@ const postSlug: ComputedRef<string> = computed(() => {
   return Array.isArray(slug) ? slug[0] : slug ?? "";
 });
 
-const isLoading: ComputedRef<ModuleTypes["isLoading"]> = computed(() => {
+const isLoading: ComputedRef<ModuleType["isLoading"]> = computed(() => {
   return store.state.post.isLoading;
 });
 
-const post: ComputedRef<ModuleTypes["data"]> = computed(() => {
+const post: ComputedRef<ModuleType["data"]> = computed(() => {
   return store.state.post.data;
 });
 
-const error: ComputedRef<ModuleTypes["error"]> = computed(() => {
+const error: ComputedRef<ModuleType["error"]> = computed(() => {
   return store.state.post.error;
 });
+
+const currentUsername: ComputedRef<UserType["username"]> = computed(() => {
+  const user = store.getters[AuthGetters.currentUser];
+  return user ? user.username : null;
+});
+
+const isAuthor: ComputedRef<Boolean> = computed(() => {
+  if (!currentUsername.value || !post.value) return false;
+
+  return currentUsername.value === post.value.author.username;
+});
+
+const deletePost = (): void => {
+  store.dispatch(PostActions.deletePost, {slug: postSlug.value}).then(() => {
+    router.push({name: "global-posts"});
+  });
+};
 
 onMounted(() => {
   store.dispatch(PostActions.getPost, {slug: postSlug.value});
@@ -44,58 +66,29 @@ onMounted(() => {
       <div class="post-box">
         <div class="head-post">
           <h2 class="title">{{ post.title }}</h2>
-          <div class="info-box">
-            <router-link
-              :to="{name: 'userProfile', params: {slug: post.author.username}}"
-              class="link-user-image"
-            >
-              <img
-                :src="post.author.image"
-                alt="user logo"
-                class="user-image"
-              />
-            </router-link>
-            <div class="short-info">
-              <router-link
-                :to="{
-                  name: 'userProfile',
-                  params: {slug: post.author.username},
-                }"
-                class="user-name"
-              >
-                {{ post.author.username }}
-              </router-link>
-              <h6>
-                {{ new Date(post.createdAt).toLocaleDateString("en-GB") }}
-              </h6>
-            </div>
+          <div class="row">
+            <topo-author-info-box :data="post" />
 
-            <!-- IF POST WROTE THIS USER -->
-            <router-link
-              :to="{name: 'home', params: {slug: post.slug}}"
-              class="button gray ml-auto"
-            >
-              <mdicon name="InvoiceTextEditOutline" />
-              Edit Post
-            </router-link>
-            <button class="button red">
-              <mdicon name="FileDocumentRemoveOutline" />
-              Delete Post
-            </button>
+            <template v-if="isAuthor">
+              <router-link
+                :to="{name: 'home', params: {slug: post.slug}}"
+                class="button gray ml-auto"
+              >
+                <mdicon name="InvoiceTextEditOutline" />
+                Edit Post
+              </router-link>
+              <button @click="deletePost" class="button red">
+                <mdicon name="FileDocumentRemoveOutline" />
+                Delete Post
+              </button>
+            </template>
           </div>
         </div>
 
         <div class="main-post">
           <div class="description">{{ post.body }}</div>
-          <div class="tags-group">
-            <div
-              v-for="(tag, idxTag) in post.tagList"
-              :key="idxTag"
-              class="tag"
-            >
-              {{ tag }}
-            </div>
-          </div>
+
+          <topo-tags-list :tag-list="post.tagList" />
         </div>
 
         <div class="footer-post"></div>
@@ -123,57 +116,11 @@ onMounted(() => {
         font-weight: 600;
       }
 
-      .info-box {
+      .row {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         gap: 1rem;
-
-        .link-user-image {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          .user-image {
-            width: 2.5rem;
-            height: 2.5rem;
-            aspect-ratio: 1;
-            border-radius: 50%;
-            margin: auto 0;
-          }
-        }
-
-        .short-info {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-
-          .user-name {
-            color: $primary;
-            font-size: 1.5rem;
-            position: relative;
-
-            &::after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              height: 0.2rem;
-              width: 0%;
-              background-color: $primary;
-              transition: width 0.3s ease-in-out;
-            }
-
-            &:hover {
-              &::after {
-                width: 100%;
-              }
-            }
-          }
-          h6 {
-            font-size: 1rem;
-            color: $third_80;
-          }
-        }
 
         .button {
           display: flex;
@@ -232,21 +179,6 @@ onMounted(() => {
       .description {
         font-size: 1.2rem;
         line-height: 1.8rem;
-      }
-
-      .tags-group {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-
-        .tag {
-          font-size: 1rem;
-          color: $third_80;
-          padding: 0.25rem 0.5rem;
-          border-radius: 2rem;
-          border: 1px solid $third_80;
-        }
       }
     }
 

@@ -3,6 +3,8 @@ import {onMounted, computed, ComputedRef, reactive, watch} from "vue";
 import TopoPagination from "@/components/Pagination.vue";
 import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
+import TopoTagsList from "@/components/TagsList.vue";
+import TopoAuthorInfoBox from "@/components/AuthorInfoBox.vue";
 
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
@@ -10,7 +12,7 @@ import queryString from "query-string";
 
 import {PaginationTypes} from "@/types/pagination-types";
 import {PostsActions} from "@/store/modules/posts";
-import {ModuleTypes} from "@/types/module-types";
+import {ModuleType} from "@/types/module-types";
 
 const store = useStore();
 const route = useRoute();
@@ -58,13 +60,13 @@ const apiUrlWithParams: ComputedRef<string> = computed(() => {
   return `${parsedUrl.url}?${stringifidParams}`;
 });
 
-const isLoading: ComputedRef<ModuleTypes["isLoading"]> = computed(() => {
+const isLoading: ComputedRef<ModuleType["isLoading"]> = computed(() => {
   return store.state.posts.isLoading;
 });
-const posts: ComputedRef<ModuleTypes["data"]> = computed(() => {
+const posts: ComputedRef<ModuleType["data"]> = computed(() => {
   return store.state.posts.data;
 });
-const error: ComputedRef<ModuleTypes["error"]> = computed(() => {
+const error: ComputedRef<ModuleType["error"]> = computed(() => {
   return store.state.posts.error;
 });
 
@@ -92,32 +94,8 @@ onMounted(() => {
     <div v-if="posts" class="posts-group">
       <div v-for="(post, index) in posts.articles" :key="index" class="post">
         <div class="top-group">
-          <div class="info-box">
-            <router-link
-              :to="{name: 'userProfile', params: {slug: post.author.username}}"
-              class="link-user-image"
-            >
-              <img
-                :src="post.author.image"
-                alt="user logo"
-                class="user-image"
-              />
-            </router-link>
-            <div class="short-info">
-              <router-link
-                :to="{
-                  name: 'userProfile',
-                  params: {slug: post.author.username},
-                }"
-                class="user-name"
-              >
-                {{ post.author.username }}
-              </router-link>
-              <h6>
-                {{ new Date(post.createdAt).toLocaleDateString("en-GB") }}
-              </h6>
-            </div>
-          </div>
+          <topo-author-info-box :data="post" />
+
           <div class="like">
             <mdicon v-if="post.favorited" name="HeartMultiple" />
             <mdicon v-else name="HeartMultipleOutline" />
@@ -135,16 +113,8 @@ onMounted(() => {
           >
             Read more...
           </router-link>
-          <div class="tag-list">
-            <router-link
-              v-for="(tag, idxTag) in post.tagList"
-              :key="idxTag"
-              :to="{name: 'tag', params: {slug: tag}}"
-              class="tag"
-            >
-              {{ tag }}
-            </router-link>
-          </div>
+
+          <topo-tags-list :tag-list="post.tagList" :tags-links="true" />
         </div>
       </div>
     </div>
@@ -186,59 +156,6 @@ onMounted(() => {
 
         @include break("xs") {
           flex-wrap: wrap;
-        }
-
-        .info-box {
-          display: flex;
-          flex-direction: row;
-          gap: 1rem;
-
-          .link-user-image {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .user-image {
-              width: 2.5rem;
-              height: 2.5rem;
-              aspect-ratio: 1;
-              border-radius: 50%;
-              margin: auto 0;
-            }
-          }
-
-          .short-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-
-            .user-name {
-              color: $primary;
-              font-size: 1.5rem;
-              position: relative;
-
-              &::after {
-                content: "";
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                height: 0.2rem;
-                width: 0%;
-                background-color: $primary;
-                transition: width 0.3s ease-in-out;
-              }
-
-              &:hover {
-                &::after {
-                  width: 100%;
-                }
-              }
-            }
-            h6 {
-              font-size: 1rem;
-              color: $third_80;
-            }
-          }
         }
 
         .like {
@@ -286,28 +203,6 @@ onMounted(() => {
 
           &:hover {
             color: $secondary;
-          }
-        }
-
-        .tag-list {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-
-          .tag {
-            border: 1px solid $third_90;
-            font-size: 1.1rem;
-            color: $third_90;
-            padding: 0.25rem 0.5rem;
-            border-radius: 2rem;
-            transition: background-color 0.3s ease-in-out,
-              color 0.3s ease-in-out;
-
-            &:hover {
-              background-color: $third_90;
-              color: #000;
-            }
           }
         }
       }

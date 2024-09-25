@@ -5,6 +5,16 @@ const getPost = (slug: string) => {
   return axios.get(`${baseURL["post"]}/articles/${slug}`);
 };
 
+const createPost = (postInput: string) => {
+  return axios.post(`${baseURL["post"]}/articles`, {article: postInput});
+};
+
+const deletePost = (slug: string) => {
+  return axios.delete(`${baseURL["post"]}/articles/${slug}`);
+};
+
 export default {
   getPost,
+  createPost,
+  deletePost,
 };

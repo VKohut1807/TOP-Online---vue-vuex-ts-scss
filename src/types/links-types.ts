@@ -1,10 +1,5 @@
 export type LinksType = {
   route: string;
   title: string;
+  icon?: string;
 };
-
-export type SocialLinksType = LinksType & {
-  icon: string;
-};
-
-export type NavLinksType = Omit<SocialLinksType, "route">;

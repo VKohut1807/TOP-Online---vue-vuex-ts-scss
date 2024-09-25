@@ -7,7 +7,7 @@ const register = (credentials: UserType) => {
 };
 
 const login = (credentials: UserType) => {
-  return axios.post(`${baseURL["login-register"]}/users/login`, {
+  return axios.post(`${baseURL["get-current-user"]}/users/login`, {
     user: credentials,
   });
 };

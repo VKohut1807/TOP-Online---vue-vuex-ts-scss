@@ -1,7 +1,7 @@
 import {ref, Ref} from "vue";
-import {LinksType, SocialLinksType} from "@/types/links-types";
+import {LinksType} from "@/types/links-types";
 
-export const socialLinks: Ref<SocialLinksType[]> = ref([
+export const socialLinks: Ref<LinksType[]> = ref([
   {
     route: "home",
     title: "Facebook",

@@ -73,4 +73,19 @@ export const breadcrumbsConfig: Record<string, Breadcrumbs[]> = {
       icon: "PostOutline",
     },
   ],
+  CreatePost: [
+    {title: "Home", path: "/", name: "home", icon: "HomeCircleOutline"},
+    {
+      title: "All Posts",
+      path: "/global-posts",
+      name: "global-posts",
+      icon: "BallotOutline",
+    },
+    {
+      title: "New Post",
+      path: "/posts/new",
+      name: "posts",
+      icon: "Post",
+    },
+  ],
 };
