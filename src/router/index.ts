@@ -74,7 +74,7 @@ const router = createRouter({
       name: "editPost",
       component: EditPost,
       meta: {
-        breadcrumb: breadcrumbsConfig.TagPosts,
+        breadcrumb: breadcrumbsConfig.EditPost,
       },
     },
     {

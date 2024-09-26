@@ -88,7 +88,7 @@ export const breadcrumbsConfig: Record<string, Breadcrumbs[]> = {
       icon: "Post",
     },
   ],
-  UpdatePost: [
+  EditPost: [
     {title: "Home", path: "/", name: "home", icon: "HomeCircleOutline"},
     {
       title: "All Posts",
