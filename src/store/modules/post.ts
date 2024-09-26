@@ -13,6 +13,10 @@ export enum PostMutations {
   createPostSuccess = "[post] Create Post Success",
   createPostFailure = "[post] Create Post Failure",
 
+  updatePostStart = "[post] Update Post Start",
+  updatePostSuccess = "[post] Update Post Success",
+  updatePostFailure = "[post] Update Post Failure",
+
   deletePostStart = "[post] delete Post Start",
   deletePostSuccess = "[post] delete Post Success",
   deletePostFailure = "[post] delete Post Failure",
@@ -21,6 +25,7 @@ export enum PostMutations {
 export enum PostActions {
   getPost = "[post] Get Post",
   createPost = "[post] Create Post",
+  updatePost = "[post] Update Post",
   deletePost = "[post] Delete Post",
 }
 
@@ -52,6 +57,17 @@ const mutations: MutationTree<ModuleType> = {
     state.isSubmitting = false;
   },
   [PostMutations.createPostFailure](state: ModuleType, payload: string[]) {
+    state.isSubmitting = false;
+    state.validationErrors = payload;
+  },
+
+  [PostMutations.updatePostStart](state: ModuleType) {
+    state.isSubmitting = true;
+  },
+  [PostMutations.updatePostSuccess](state: ModuleType) {
+    state.isSubmitting = false;
+  },
+  [PostMutations.updatePostFailure](state: ModuleType, payload: string[]) {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
@@ -109,6 +125,32 @@ const actions: ActionTree<ModuleType, object> = {
           );
 
           console.log("ERRORS CREATE POST", errors?.response?.data?.errors);
+        });
+    });
+  },
+
+  [PostActions.updatePost](
+    {commit, state}: ActionContext<ModuleType, object>,
+    {slug, postInput}: {slug: string; postInput: string}
+  ) {
+    return new Promise<void>((resolve, reject) => {
+      commit(PostMutations.updatePostStart);
+
+      postApi
+        .updatePost(slug, postInput)
+        .then((response) => {
+          commit(PostMutations.updatePostSuccess, response.data.article);
+
+          resolve(response.data.article);
+        })
+
+        .catch((errors: AxiosError<{errors?: string[]}>) => {
+          commit(
+            PostMutations.updatePostFailure,
+            errors?.response?.data?.errors
+          );
+
+          console.log("ERRORS UPDATE POST", errors?.response?.data?.errors);
         });
     });
   },

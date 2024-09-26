@@ -80,7 +80,9 @@ const clickNavDrawerToggle = (): void => {
           <template v-if="currentUser">
             <img :src="currentUser.image" alt="" />
             &nbsp;
-            {{ currentUser.username }}
+            <span>
+              {{ currentUser.username }}
+            </span>
           </template>
           <template v-else>
             <mdicon name="AccountCircleOutline" />
@@ -148,6 +150,7 @@ const clickNavDrawerToggle = (): void => {
 
       .link {
         color: #fff;
+        font-size: 1.5rem;
         transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 
         &.active {
@@ -199,6 +202,10 @@ const clickNavDrawerToggle = (): void => {
         cursor: pointer;
         transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
         color: #fff;
+
+        @include break("md") {
+          margin-left: auto;
+        }
 
         img {
           width: 2rem;

@@ -195,6 +195,7 @@ onMounted(() => {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        gap: 1rem;
 
         .link-to-post {
           font-size: 1.25rem;

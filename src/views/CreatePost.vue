@@ -16,7 +16,7 @@ const initialValues: PostType = reactive({
   title: "",
   description: "",
   body: "",
-  TagList: [],
+  tagList: [],
 });
 
 const isSubmitting: ComputedRef<ModuleType["isSubmitting"]> = computed(() => {

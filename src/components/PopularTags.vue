@@ -67,6 +67,10 @@ onMounted(() => {
   padding: 0.75rem;
   border-radius: 0.5rem;
 
+  @include break("md") {
+    top: 10rem;
+  }
+
   .popular-tags {
     display: flex;
     flex-direction: column;

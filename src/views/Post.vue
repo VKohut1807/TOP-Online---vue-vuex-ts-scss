@@ -71,7 +71,7 @@ onMounted(() => {
 
             <template v-if="isAuthor">
               <router-link
-                :to="{name: 'home', params: {slug: post.slug}}"
+                :to="{name: 'editPost', params: {slug: post.slug}}"
                 class="button gray ml-auto"
               >
                 <mdicon name="InvoiceTextEditOutline" />

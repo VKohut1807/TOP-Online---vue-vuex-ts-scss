@@ -9,6 +9,10 @@ const createPost = (postInput: string) => {
   return axios.post(`${baseURL["post"]}/articles`, {article: postInput});
 };
 
+const updatePost = (slug: string, postInput: string) => {
+  return axios.put(`${baseURL["post"]}/articles/${slug}`, {article: postInput});
+};
+
 const deletePost = (slug: string) => {
   return axios.delete(`${baseURL["post"]}/articles/${slug}`);
 };
@@ -16,5 +20,6 @@ const deletePost = (slug: string) => {
 export default {
   getPost,
   createPost,
+  updatePost,
   deletePost,
 };
