@@ -85,7 +85,7 @@ const onSubmit = (): void => {
               class="input"
             />
           </div>
-          <button type="submit" :disabled="isSubmitting" class="button">
+          <button type="submit" :disabled="isSubmitting" class="btn">
             Publish Post
           </button>
         </form>
@@ -151,28 +151,8 @@ const onSubmit = (): void => {
         }
       }
 
-      .button {
+      .btn {
         margin-left: auto;
-        width: fit-content;
-        padding: 1rem 2rem;
-        border: none;
-        background-color: $primary;
-        color: #fff;
-        border-radius: 1rem 0;
-        font-size: 1.5rem;
-        cursor: pointer;
-        overflow: hidden;
-        transition: border-radius 0.3s ease-in-out,
-          background-color 0.3s ease-in-out;
-
-        &:disabled {
-          background-color: $third_40;
-        }
-
-        &:hover {
-          border-radius: 0 1rem;
-          background-color: $primary_40;
-        }
       }
     }
   }

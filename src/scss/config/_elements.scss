@@ -12,11 +12,11 @@ html {
 
   font-size: clamp(0.75rem, 0.4651rem + 0.5935vw, 1rem);
 
-  @include break("lg down") {
+  @include break("lg") {
     font-size: 14px;
   }
 
-  @include break("sm down") {
+  @include break("sm") {
     font-size: 12px;
   }
 

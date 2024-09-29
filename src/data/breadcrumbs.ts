@@ -103,4 +103,13 @@ export const breadcrumbsConfig: Record<string, Breadcrumbs[]> = {
       icon: "FileDocumentEditOutline",
     },
   ],
+  UserSettings: [
+    {title: "Home", path: "/", name: "home", icon: "HomeCircleOutline"},
+    {
+      title: "User Settings",
+      path: "/user-settings",
+      name: "user-settings",
+      icon: "CogOutline",
+    },
+  ],
 };

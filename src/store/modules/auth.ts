@@ -17,12 +17,20 @@ export enum AuthMutations {
   getCurrentUserStart = "[auth] get Current User Start",
   getCurrentUserSuccess = "[auth] get Current User Success",
   getCurrentUserFailure = "[auth] get Current User Failure",
+
+  updateCurrentUserStart = "[auth] update Current User Start",
+  updateCurrentUserSuccess = "[auth] update Current User Success",
+  updateCurrentUserFailure = "[auth] update Current User Failure",
+
+  logoutCurrentUser = "[auth] logout Current User",
 }
 
 export enum AuthActions {
   register = "[auth] register",
   login = "[auth] login",
   getCurrentUser = "[auth] get Current User",
+  updateCurrentUser = "[auth] update Current User",
+  logoutCurrentUser = "[auth] logout Current User",
 }
 
 export enum AuthGetters {
@@ -99,6 +107,20 @@ const mutations: MutationTree<AuthTypes> = {
     state.isLoggedIn = false;
     state.currentUser = null;
   },
+
+  [AuthMutations.updateCurrentUserStart](state: AuthTypes) {},
+  [AuthMutations.updateCurrentUserSuccess](
+    state: AuthTypes,
+    payload: ExtendedUserType
+  ) {
+    state.currentUser = payload;
+  },
+  [AuthMutations.updateCurrentUserFailure](state: AuthTypes) {},
+
+  [AuthMutations.logoutCurrentUser](state: AuthTypes) {
+    state.isLoggedIn = false;
+    state.currentUser = null;
+  },
 };
 
 const actions: ActionTree<AuthTypes, object> = {
@@ -167,8 +189,44 @@ const actions: ActionTree<AuthTypes, object> = {
             error?.response?.data?.errors
           );
 
-          console.log("ERRORS LOGIN", error?.response?.data?.errors);
+          console.log("ERRORS GET CURRENT USER", error?.response?.data?.errors);
         });
+    });
+  },
+
+  [AuthActions.updateCurrentUser](
+    {commit}: ActionContext<AuthTypes, object>,
+    {currentUserInput}: {currentUserInput: ExtendedUserType}
+  ) {
+    return new Promise((resolve, reject) => {
+      commit(AuthMutations.updateCurrentUserStart);
+
+      authApi
+        .updateCurrentUser(currentUserInput)
+        .then((response) => {
+          commit(AuthMutations.updateCurrentUserSuccess, response.data.user);
+
+          resolve(response.data.user);
+        })
+        .catch((error: AxiosError<{errors?: string[]}>) => {
+          commit(
+            AuthMutations.updateCurrentUserFailure,
+            error?.response?.data?.errors
+          );
+
+          console.log(
+            "ERRORS UPDATE CURRENT USER",
+            error?.response?.data?.errors
+          );
+        });
+    });
+  },
+
+  [AuthActions.logoutCurrentUser]({commit}: ActionContext<AuthTypes, object>) {
+    return new Promise<void>((resolve, reject) => {
+      setItem("accessToken", "");
+      commit(AuthMutations.logoutCurrentUser);
+      resolve();
     });
   },
 };

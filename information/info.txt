@@ -1,10 +1,8 @@
 # node version is used --- v22.3.0
 
-# auth - is used from the site --- https://demo.realworld.io/#/
-## login and registration - is used from the URL --- https://conduit.productionready.io/api
-## getCurrentUser - is used from the URL --- https://api.realworld.io/api
-## posts - is used from the URL --- https://api.realworld.io/api
-## popularTags - is used from the URL --- "https://api.realworld.io/api",
+# using RealWorld's API endpoints as the backend, with two base URLs.
+##  conduit: "https://conduit.productionready.io/api"
+##  realworld: "https://api.realworld.io/api"
 
 # icons from the site --- https://pictogrammers.com/library/mdi/
 

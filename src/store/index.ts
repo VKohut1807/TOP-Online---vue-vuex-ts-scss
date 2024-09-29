@@ -3,7 +3,8 @@ import auth from "@/store/modules/auth";
 import posts from "@/store/modules/posts";
 import popularTags from "@/store/modules/popularTags";
 import post from "@/store/modules/post";
+import userSettings from "@/store/modules/userSettings";
 
 export default createStore({
-  modules: {auth, posts, popularTags, post},
+  modules: {auth, posts, popularTags, post, userSettings},
 });

@@ -1,12 +1,26 @@
 <script lang="ts" setup>
 import {navigationDrawers} from "@/data/menuData";
 
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
+
+import {AuthActions} from "@/store/modules/auth";
+
+const store = useStore();
+const router = useRouter();
+
 const props = defineProps({
   navDrawerToggle: {
     type: Boolean,
     required: true,
   },
 });
+
+const onLogout = (): void => {
+  store
+    .dispatch(AuthActions.logoutCurrentUser)
+    .then(() => router.push({name: "home"}));
+};
 </script>
 
 <template>
@@ -17,6 +31,12 @@ const props = defineProps({
           <mdicon :name="icon" />
           <span class="text">{{ title }}</span>
         </router-link>
+      </li>
+      <li>
+        <button @click="onLogout" class="tag">
+          <mdicon name="Logout" />
+          <span class="text">Logout</span>
+        </button>
       </li>
     </ul>
   </nav>
@@ -61,7 +81,7 @@ const props = defineProps({
       }
     }
     li {
-      a {
+      .tag {
         color: #fff;
         display: flex;
         align-items: center;
@@ -70,6 +90,11 @@ const props = defineProps({
         height: 3rem;
         border-radius: 8px;
         position: relative;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+
         &:hover,
         &:focus,
         &.active {

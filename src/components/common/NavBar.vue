@@ -210,6 +210,7 @@ const clickNavDrawerToggle = (): void => {
         img {
           width: 2rem;
           aspect-ratio: 1;
+          border-radius: 50%;
         }
 
         &:hover,

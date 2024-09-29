@@ -16,9 +16,9 @@ const apiUrlPopularTags: Ref<string> = ref("/tags");
     <div class="wrapper">
       <topo-tabs />
       <div class="row">
-        <topo-posts :api-url="baseURL.posts + apiUrl" />
+        <topo-posts :api-url="baseURL.realworld + apiUrl" />
 
-        <topo-popular-tags :api-url="baseURL.popularTags + apiUrlPopularTags" />
+        <topo-popular-tags :api-url="baseURL.realworld + apiUrlPopularTags" />
       </div>
     </div>
   </section>

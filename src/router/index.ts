@@ -8,6 +8,7 @@ import TagPosts from "@/views/TagPosts.vue";
 import Post from "@/views/Post.vue";
 import CreatePost from "@/views/CreatePost.vue";
 import EditPost from "@/views/EditPost.vue";
+import UserSettings from "@/views/UserSettings.vue";
 import {breadcrumbsConfig} from "@/data/breadcrumbs";
 
 const router = createRouter({
@@ -86,9 +87,12 @@ const router = createRouter({
       },
     },
     {
-      path: "/settings",
-      name: "settings",
-      component: GlobalPosts,
+      path: "/user-settings",
+      name: "user-settings",
+      component: UserSettings,
+      meta: {
+        breadcrumb: breadcrumbsConfig.UserSettings,
+      },
     },
     {
       path: "/profiles/:slug",

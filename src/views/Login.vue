@@ -32,7 +32,7 @@ const user: UserType = reactive({
 const onSubmit = (): void => {
   store
     .dispatch(AuthActions.login, user as UserType)
-    .then(() => router.push({name: "posts", params: {slug: "awe-3474"}}));
+    .then(() => router.push({name: "home"}));
 };
 </script>
 
@@ -154,28 +154,7 @@ const onSubmit = (): void => {
       }
 
       .btn {
-        display: block;
-        width: fit-content;
-        height: fit-content;
         margin-left: auto;
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        background-color: $primary_70;
-        cursor: pointer;
-        color: #fff;
-        font-size: 1.5rem;
-        border: 1px solid $primary_80;
-        transition: background-color 0.3s ease-in-out;
-
-        &:hover {
-          background-color: $primary_50;
-        }
-
-        &:disabled {
-          cursor: auto;
-          background-color: $primary_10;
-          border: 1px solid $primary_30;
-        }
       }
     }
   }

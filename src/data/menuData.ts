@@ -19,6 +19,5 @@ export const navigationDrawers: Ref<LinksType[]> = ref([
   {route: "home", title: "Games", icon: "GamepadVariantOutline"},
   {route: "home", title: "Books", icon: "BookOpenVariantOutline"},
   {route: "home", title: "Notifications", icon: "BellRingOutline"},
-  {route: "home", title: "Settings", icon: "CogOutline"},
-  {route: "home", title: "Profile", icon: "AccountCircleOutline"},
+  {route: "user-settings", title: "User Settings", icon: "CogOutline"},
 ]);
