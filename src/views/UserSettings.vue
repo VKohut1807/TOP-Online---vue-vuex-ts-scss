@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {computed, ComputedRef, reactive, watch} from "vue";
-import TopoValidationErrors from "@/components/ValidationErrors.vue";
-
 import {useStore} from "vuex";
+
+import TopoValidationErrors from "@/components/ValidationErrors.vue";
 
 import {ModuleType} from "@/types/module-types";
 import {AuthTypes} from "@/types/auth-types";

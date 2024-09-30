@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {computed, ComputedRef, reactive} from "vue";
-import TopoPostForm from "@/components/PostForm.vue";
-
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
+
+import TopoPostForm from "@/components/PostForm.vue";
 
 import {PostType} from "@/types/post-types";
 import {ModuleType} from "@/types/module-types";

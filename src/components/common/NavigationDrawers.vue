@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import {navigationDrawers} from "@/data/menuData";
-
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 
 import {AuthActions} from "@/store/modules/auth";
+
+import {navigationDrawers} from "@/data/menuData";
 
 const store = useStore();
 const router = useRouter();

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {computed, ComputedRef, onMounted} from "vue";
+import {useStore} from "vuex";
+import {useRouter, useRoute} from "vue-router";
+
 import TopoPostForm from "@/components/PostForm.vue";
 import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
-
-import {useStore} from "vuex";
-import {useRouter, useRoute} from "vue-router";
 
 import {PostType} from "@/types/post-types";
 import {ModuleType} from "@/types/module-types";

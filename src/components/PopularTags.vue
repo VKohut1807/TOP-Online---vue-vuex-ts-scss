@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {onMounted, computed, ComputedRef} from "vue";
+import {useStore} from "vuex";
+
 import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
-
-import {useStore} from "vuex";
 
 import {PopularTagsActions} from "@/store/modules/popularTags";
 import {ModuleType} from "@/types/module-types";

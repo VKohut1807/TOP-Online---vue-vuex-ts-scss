@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {onMounted, computed, ComputedRef, reactive, watch} from "vue";
+import {useStore} from "vuex";
+import {useRoute} from "vue-router";
+import queryString from "query-string";
+
 import TopoPagination from "@/components/Pagination.vue";
 import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
 import TopoTagsList from "@/components/TagsList.vue";
 import TopoAuthorInfoBox from "@/components/AuthorInfoBox.vue";
-
-import {useStore} from "vuex";
-import {useRoute} from "vue-router";
-import queryString from "query-string";
 
 import {PaginationTypes} from "@/types/pagination-types";
 import {PostsActions} from "@/store/modules/posts";

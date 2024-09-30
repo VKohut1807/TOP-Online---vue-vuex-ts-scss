@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {cardData} from "@/data/homePageData";
 import TopoCard from "@/components/Card.vue";
+
+import {cardData} from "@/data/homePageData";
 </script>
 
 <template>

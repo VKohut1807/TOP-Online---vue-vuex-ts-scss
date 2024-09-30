@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {computed, ComputedRef, reactive} from "vue";
+import {computed, ComputedRef, reactive, onMounted} from "vue";
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 
 import {AuthTypes} from "@/types/auth-types";
 import {UserType} from "@/types/user-types";
-import {AuthActions} from "@/store/modules/auth";
+import {AuthActions, AuthMutations} from "@/store/modules/auth";
 
 import TopoValidationErrors from "@/components/ValidationErrors.vue";
 
@@ -34,6 +34,10 @@ const onSubmit = (): void => {
     .dispatch(AuthActions.login, user as UserType)
     .then(() => router.push({name: "home"}));
 };
+
+onMounted(() => {
+  store.commit(AuthMutations.droppingErrors);
+});
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ComputedRef, reactive} from "vue";
+import {computed, ComputedRef} from "vue";
 import {useRoute} from "vue-router";
 
 import {Breadcrumbs} from "@/types/breadcrumbs-types";

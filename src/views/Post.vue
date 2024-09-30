@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {onMounted, computed, ComputedRef} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {useStore} from "vuex";
+
 import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
 import TopoTagsList from "@/components/TagsList.vue";
 import TopoAuthorInfoBox from "@/components/AuthorInfoBox.vue";
-
-import {useRoute, useRouter} from "vue-router";
-import {useStore} from "vuex";
 
 import {ModuleType} from "@/types/module-types";
 import {PostActions} from "@/store/modules/post";

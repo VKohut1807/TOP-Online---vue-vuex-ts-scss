@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {reactive} from "vue";
+
 import TopoValidationErrors from "@/components/ValidationErrors.vue";
 
 import {PostType} from "@/types/post-types";

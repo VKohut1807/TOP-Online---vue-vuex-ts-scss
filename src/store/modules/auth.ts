@@ -23,6 +23,7 @@ export enum AuthMutations {
   updateCurrentUserFailure = "[auth] update Current User Failure",
 
   logoutCurrentUser = "[auth] logout Current User",
+  droppingErrors = "[auth] Dropping Errors",
 }
 
 export enum AuthActions {
@@ -120,6 +121,10 @@ const mutations: MutationTree<AuthTypes> = {
   [AuthMutations.logoutCurrentUser](state: AuthTypes) {
     state.isLoggedIn = false;
     state.currentUser = null;
+  },
+
+  [AuthMutations.droppingErrors](state: AuthTypes) {
+    state.validationErrors = null;
   },
 };
 

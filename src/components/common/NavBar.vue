@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {navLinks} from "@/data/menuData";
-
 import {computed, ComputedRef} from "vue";
 import {useStore} from "vuex";
 
 import {AuthTypes} from "@/types/auth-types";
 import {AuthGetters} from "@/store/modules/auth";
+
+import {navLinks} from "@/data/menuData";
 
 const props = defineProps({
   navDrawerToggle: {
