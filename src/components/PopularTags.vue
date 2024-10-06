@@ -46,7 +46,7 @@ onMounted(() => {
         <router-link
           v-for="(tag, idxTag) in popularTags"
           :key="idxTag"
-          :to="{name: 'tag', params: {slug: tag}}"
+          :to="{name: 'tag', params: {slug: String(tag)}}"
           class="tag"
         >
           {{ tag }}

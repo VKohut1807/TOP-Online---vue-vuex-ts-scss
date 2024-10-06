@@ -9,6 +9,7 @@ import TopoLoading from "@/components/Loading.vue";
 import TopoErrorMessage from "@/components/ErrorMessage.vue";
 import TopoTagsList from "@/components/TagsList.vue";
 import TopoAuthorInfoBox from "@/components/AuthorInfoBox.vue";
+import TopoAddToFavorites from "@/components/AddToFavorites.vue";
 
 import {PaginationTypes} from "@/types/pagination-types";
 import {PostsActions} from "@/store/modules/posts";
@@ -96,12 +97,13 @@ onMounted(() => {
         <div class="top-group">
           <topo-author-info-box :data="post" />
 
-          <div class="like">
-            <mdicon v-if="post.favorited" name="HeartMultiple" />
-            <mdicon v-else name="HeartMultipleOutline" />
-            {{ post.favoritesCount }}
-          </div>
+          <topo-add-to-favorites
+            :is-favorited="post.favorited"
+            :post-slug="post.slug"
+            :favorites-count="post.favoritesCount"
+          />
         </div>
+
         <div class="main-group">
           <h3>{{ post.title }}</h3>
           <p>{{ post.description }}</p>
@@ -156,23 +158,6 @@ onMounted(() => {
 
         @include break("xs") {
           flex-wrap: wrap;
-        }
-
-        .like {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 0.5rem;
-          border: 1px solid $primary;
-          padding: 0.25rem 0.5rem;
-          border-radius: 2rem;
-          cursor: pointer;
-          font-size: 1.25rem;
-          color: $primary;
-
-          @include break("xs") {
-            margin-left: auto;
-          }
         }
       }
 

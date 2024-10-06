@@ -4,7 +4,8 @@ import posts from "@/store/modules/posts";
 import popularTags from "@/store/modules/popularTags";
 import post from "@/store/modules/post";
 import userSettings from "@/store/modules/userSettings";
+import addToFavorites from "@/store/modules/addToFavorites";
 
 export default createStore({
-  modules: {auth, posts, popularTags, post, userSettings},
+  modules: {auth, posts, popularTags, post, userSettings, addToFavorites},
 });

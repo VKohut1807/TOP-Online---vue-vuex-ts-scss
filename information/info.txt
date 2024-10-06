@@ -7,3 +7,11 @@
 # icons from the site --- https://pictogrammers.com/library/mdi/
 
 # library used for parsing and stringing URL query strings --- "query-string"
+
+# "optimistic updated" - addToFavorites component
+## "Optimistic updates" is a strategy where the user interface is updated before the server confirms the successful completion of a request. If the request fails, the changes are reverted. This approach improves system responsiveness and creates the impression of faster interaction.
+## Let's add optimistic updates to a component that uses the addToFavorites action. Here are the main steps:
+### Update the local state before the server-side change.
+### Perform the request to the server.
+### If the request is successful, keep the local update.
+### If the request fails, revert to the previous state.
