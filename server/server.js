@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+require("./SQLiteDB/createTables");
 
 const {HTTP_PORT} = require("./constants");
 const authRoutes = require("./routes/authRoutes");
