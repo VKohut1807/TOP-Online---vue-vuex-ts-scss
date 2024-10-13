@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:frontend\"",
+    "dev:frontend": "vite",
+    "dev:server": "nodemon server/server.js",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },
@@ -19,7 +21,9 @@
     "@mdi/js": "^7.4.47",
     "@types/node": "^22.5.4",
     "@vitejs/plugin-vue": "^5.1.2",
+    "concurrently": "^9.0.1",
     "mdi-vue": "^3.0.13",
+    "nodemon": "^3.1.7",
     "sass-embedded": "^1.78.0",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",

@@ -4,7 +4,7 @@ import {getItem} from "@/helpers/persistanceStorage";
 axios.interceptors.request.use((config) => {
   const token = getItem("accessToken");
 
-  const authorizisationToken = token ? `Token ${token}` : "";
+  const authorizisationToken = token ? `${token}` : "";
 
   config.headers.Authorization = authorizisationToken;
 

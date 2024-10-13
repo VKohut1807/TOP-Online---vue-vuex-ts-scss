@@ -15,3 +15,7 @@
 ### Perform the request to the server.
 ### If the request is successful, keep the local update.
 ### If the request fails, revert to the previous state.
+
+# Backend Development with Express (Node.js)
+# Utilize Concurrently in package.json to run the frontend and backend simultaneously
+# Database Management with SQLite 

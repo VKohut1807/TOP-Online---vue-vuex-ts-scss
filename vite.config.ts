@@ -7,6 +7,12 @@ export default defineConfig({
   plugins: [vue(), vueDevTools()],
   server: {
     port: 5000,
+    proxy: {
+      "/api": {
+        target: "http://localhost:4000",
+        changeOrigin: true,
+      },
+    },
   },
   resolve: {
     alias: {

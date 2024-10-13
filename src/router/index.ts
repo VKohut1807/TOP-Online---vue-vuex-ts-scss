@@ -9,6 +9,7 @@ import Post from "@/views/Post.vue";
 import CreatePost from "@/views/CreatePost.vue";
 import EditPost from "@/views/EditPost.vue";
 import UserSettings from "@/views/UserSettings.vue";
+import UserProfile from "@/views/UserProfile.vue";
 import {breadcrumbsConfig} from "@/data/breadcrumbs";
 
 const router = createRouter({
@@ -97,12 +98,12 @@ const router = createRouter({
     {
       path: "/profiles/:slug",
       name: "userProfile",
-      component: GlobalPosts,
+      component: UserProfile,
     },
     {
       path: "/profiles/:slug/favorites",
       name: "userPostsFavorites",
-      component: GlobalPosts,
+      component: UserProfile,
     },
   ],
 });

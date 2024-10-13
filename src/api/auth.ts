@@ -3,21 +3,21 @@ import {baseURL} from "@/data/baseURL";
 import {UserType, ExtendedUserType} from "@/types/user-types";
 
 const register = (credentials: UserType) => {
-  return axios.post(`${baseURL["conduit"]}/users`, {user: credentials});
+  return axios.post("/api/user/register", {user: credentials});
 };
 
 const login = (credentials: UserType) => {
-  return axios.post(`${baseURL["realworld"]}/users/login`, {
+  return axios.post("/api/user/login", {
     user: credentials,
   });
 };
 
 const getCurrentUser = () => {
-  return axios.get(`${baseURL["realworld"]}/user`);
+  return axios.get(`/api/user`);
 };
 
 const updateCurrentUser = (currentUserInput: ExtendedUserType) => {
-  return axios.put(`${baseURL["realworld"]}/user`, {
+  return axios.put("/api/user", {
     user: currentUserInput,
   });
 };
