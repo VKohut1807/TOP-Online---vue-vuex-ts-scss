@@ -53,7 +53,7 @@ Before running the project, ensure you have the following dependencies installed
 To get started with this project, you'll need to clone the repository.
 
 ```bash
-git clone https://github.com/your-username/top-online---vue-vuex-ts-scss.git
+  git clone https://github.com/your-username/top-online---vue-vuex-ts-scss.git
 ```
 
 ## Setup Instructions
@@ -61,31 +61,37 @@ git clone https://github.com/your-username/top-online---vue-vuex-ts-scss.git
 1. Navigate to the frontend directory:
 
 ```bash
-   cd path/to/your/top-online---vue-vuex-ts-scss
+  cd path/to/your/top-online---vue-vuex-ts-scss
 ```
 
 2. Install frontend dependencies:
 
 ```bash
-npm install
+  npm install
 ```
 
 3. Navigate to the backend directory:
 
 ```bash
-   cd path/to/your/top-online---vue-vuex-ts-scss/server
+  cd path/to/your/top-online---vue-vuex-ts-scss/server
 ```
 
-4. Install frontend dependencies:
+4. Install backend dependencies:
 
 ```bash
-npm install
+  npm install
 ```
 
-5. Start the project (vue + express):
+5. Return to the main project folder:
 
 ```bash
-npm run dev
+  cd ..
+```
+
+6. Start the project (vue + express):
+
+```bash
+  npm run dev
 ```
 
 The frontend will be available at `http://localhost:5000` (or the specified port by Vite).

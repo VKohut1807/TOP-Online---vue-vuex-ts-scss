@@ -2,7 +2,6 @@ import {MutationTree, ActionTree, ActionContext} from "vuex";
 import {AxiosError} from "axios";
 import postApi from "@/api/post";
 import {ModuleType} from "@/types/module-types";
-import {error} from "console";
 
 export enum PostMutations {
   getPostStart = "[post] get Post Start",
@@ -90,9 +89,9 @@ const actions: ActionTree<ModuleType, object> = {
       postApi
         .getPost(slug)
         .then((response) => {
-          commit(PostMutations.getPostSuccess, response.data.article);
+          commit(PostMutations.getPostSuccess, response.data.post);
 
-          resolve(response.data.article);
+          resolve(response.data.post);
         })
 
         .catch((errors: AxiosError<{errors?: string[]}>) => {
@@ -113,9 +112,9 @@ const actions: ActionTree<ModuleType, object> = {
       postApi
         .createPost(postInput)
         .then((response) => {
-          commit(PostMutations.createPostSuccess, response.data.article);
+          commit(PostMutations.createPostSuccess, response.data.post);
 
-          resolve(response.data.article);
+          resolve(response.data.post);
         })
 
         .catch((errors: AxiosError<{errors?: string[]}>) => {
@@ -139,9 +138,9 @@ const actions: ActionTree<ModuleType, object> = {
       postApi
         .updatePost(slug, postInput)
         .then((response) => {
-          commit(PostMutations.updatePostSuccess, response.data.article);
+          commit(PostMutations.updatePostSuccess, response.data.post);
 
-          resolve(response.data.article);
+          resolve(response.data.post);
         })
 
         .catch((errors: AxiosError<{errors?: string[]}>) => {

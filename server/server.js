@@ -5,6 +5,7 @@ require("./SQLiteDB/createTables");
 
 const {HTTP_PORT} = require("./constants");
 const authRoutes = require("./routes/authRoutes");
+const postsRoutes = require("./routes/postsRoutes");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/api/user", authRoutes);
+app.use("/api/posts", postsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({error: "Route not found"});

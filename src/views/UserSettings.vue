@@ -97,6 +97,14 @@ const onDiscard = (): void => {
               :class="{empty: inputError.includes('email')}"
             />
           </div>
+          <div class="input-block">
+            <input
+              v-model="dataForm.password"
+              type="text"
+              placeholder="Password"
+              :class="{empty: inputError.includes('password')}"
+            />
+          </div>
           <div class="buttons-box">
             <button
               @click="onDiscard"

@@ -1,22 +1,21 @@
 import axios from "@/api/axios";
-import {baseURL} from "@/data/baseURL";
 
 const getPost = (slug: string) => {
-  return axios.get(`/api/articles/${slug}`);
+  return axios.get(`/api/posts/${slug}`);
 };
 
 const createPost = (postInput: string) => {
-  return axios.post(`/api/articles`, {article: postInput});
+  return axios.post(`/api/posts/create`, {post: postInput});
 };
 
 const updatePost = (slug: string, postInput: string) => {
-  return axios.put(`/api/articles/${slug}`, {
-    article: postInput,
+  return axios.put(`/api/posts/${slug}`, {
+    post: postInput,
   });
 };
 
 const deletePost = (slug: string) => {
-  return axios.delete(`/api/articles/${slug}`);
+  return axios.delete(`/api/posts/${slug}`);
 };
 
 export default {
