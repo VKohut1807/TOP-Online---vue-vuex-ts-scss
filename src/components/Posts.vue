@@ -93,7 +93,7 @@ onMounted(() => {
     <topo-error-message v-if="error" :error-message="error" />
 
     <div v-if="posts" class="posts-group">
-      <div v-for="(post, index) in posts.articles" :key="index" class="post">
+      <div v-for="(post, index) in posts" :key="index" class="post">
         <div class="top-group">
           <topo-author-info-box :data="post" />
 

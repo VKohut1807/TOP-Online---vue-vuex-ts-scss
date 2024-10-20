@@ -27,6 +27,8 @@ db.serialize(() => {
       body TEXT NOT NULL,
       tagList VARCHAR(20),
       slug VARCHAR(30) NOT NULL,
+      favorited BOOLEAN DEFAULT false,
+      favoritesCount INTEGER DEFAULT 0,
       authorId INTEGER NOT NULL,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
       updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -7,7 +7,7 @@ import TopoTabs from "@/components/Tabs.vue";
 
 import {baseURL} from "@/data/baseURL";
 
-const apiUrl: Ref<string> = ref("/articles");
+const apiUrl: Ref<string> = ref("/api/posts");
 const apiUrlPopularTags: Ref<string> = ref("/tags");
 </script>
 
@@ -16,7 +16,7 @@ const apiUrlPopularTags: Ref<string> = ref("/tags");
     <div class="wrapper">
       <topo-tabs />
       <div class="row">
-        <topo-posts :api-url="baseURL.realworld + apiUrl" />
+        <topo-posts :api-url="apiUrl" />
 
         <topo-popular-tags :api-url="baseURL.realworld + apiUrlPopularTags" />
       </div>

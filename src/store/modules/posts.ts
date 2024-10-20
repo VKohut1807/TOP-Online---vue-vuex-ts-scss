@@ -47,9 +47,9 @@ const actions: ActionTree<ModuleType, object> = {
       postsApi
         .getPosts(apiUrl)
         .then((response) => {
-          commit(PostsMutations.getPostsSuccess, response.data);
+          commit(PostsMutations.getPostsSuccess, response.data.posts);
 
-          resolve(response.data);
+          resolve(response.data.posts);
         })
         .catch((errors: AxiosError<{errors?: string[]}>) => {
           commit(
