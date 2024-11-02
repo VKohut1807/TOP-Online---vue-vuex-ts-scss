@@ -2,61 +2,110 @@ const db = require("../SQLiteDB/db");
 
 const getPosts = (req, res) => {
   const {limit, offset} = req.query;
+  const token = req.headers.authorization;
 
   db.all(
-    `SELECT * FROM posts LIMIT ? OFFSET ?`,
+    `SELECT posts.*, users.id AS authorId, users.username, users.email, users.image 
+    FROM posts 
+    LEFT JOIN users ON posts.authorId = users.id 
+    LIMIT ? OFFSET ?`,
     [limit, offset],
     (err, posts) => {
       if (err) {
-        res.status(500).json({error: err.message});
-        return;
+        console.error("Error querying database:", err.message);
+        return res.status(500).json({error: "Server error"});
       }
 
-      const authorIds = [...new Set(posts.map((post) => post.authorId))];
-
-      const userPromises = authorIds.map((authorId) => {
-        return new Promise((resolve, reject) => {
-          db.get(
-            `SELECT * FROM users WHERE id = ? LIMIT 1`,
-            [authorId],
-            (err, user) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(user);
-              }
+      if (token) {
+        db.get(
+          `SELECT id FROM users WHERE token = ? LIMIT 1`,
+          [token],
+          (err, user) => {
+            if (err) {
+              console.error("Error querying user:", err.message);
+              return res.status(500).json({error: "Server error"});
             }
-          );
-        });
-      });
 
-      Promise.all(userPromises)
-        .then((users) => {
-          const usersMap = {};
-
-          users.forEach((user) => {
             if (user) {
-              usersMap[user.id] = user;
+              db.all(
+                `SELECT postId FROM favorites WHERE userId = ?`,
+                [user.id],
+                (err, favorites) => {
+                  if (err) {
+                    console.error("Error fetching favorites:", err.message);
+                    return res.status(500).json({error: "Server error"});
+                  }
+
+                  const userFavorites = new Set(
+                    favorites.map((fav) => fav.postId)
+                  );
+
+                  console.log("userFavorites", userFavorites);
+
+                  const postsWithUsers = posts.map((post) => {
+                    post.tagList = post.tagList
+                      ? post.tagList.split(",").map((tag) => tag.trim())
+                      : [];
+
+                    return {
+                      ...post,
+                      favorited: userFavorites.has(post.id),
+                      author: {
+                        id: post.authorId,
+                        username: post.username,
+                        email: post.email,
+                        image: post.image,
+                      },
+                    };
+                  });
+
+                  return res.status(200).json({posts: postsWithUsers});
+                }
+              );
+            } else {
+              const postsWithUsers = posts.map((post) => {
+                post.tagList = post.tagList
+                  ? post.tagList.split(",").map((tag) => tag.trim())
+                  : [];
+
+                return {
+                  ...post,
+                  favorited: false,
+                  author: {
+                    id: post.authorId,
+                    username: post.username,
+                    email: post.email,
+                    image: post.image,
+                  },
+                };
+              });
+
+              return res.status(200).json({posts: postsWithUsers});
             }
-          });
+          }
+        );
+      } else {
+        const postsWithUsers = posts.map((post) => {
+          post.tagList = post.tagList
+            ? post.tagList.split(",").map((tag) => tag.trim())
+            : [];
 
-          const postsWithUsers = posts.map((post) => {
-            post.tagList = post.tagList
-              ? post.tagList.split(",").map((tag) => tag.trim())
-              : [];
+          console.log("post", post);
 
-            return {
-              ...post,
-              author: usersMap[post.authorId] || null,
-            };
-          });
-
-          return res.status(200).json({posts: postsWithUsers});
-        })
-        .catch((err) => {
-          console.error("Error fetching users:", err.message);
-          res.status(500).json({error: "Server error"});
+          return {
+            ...post,
+            favorited: false,
+            author: {
+              id: post.authorId,
+              username: post.username,
+              email: post.email,
+              image: post.image,
+            },
+          };
         });
+
+        return res.status(200).json({posts: postsWithUsers});
+      }
     }
   );
 };

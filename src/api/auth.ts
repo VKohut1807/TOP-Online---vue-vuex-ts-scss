@@ -1,5 +1,4 @@
 import axios from "@/api/axios";
-import {baseURL} from "@/data/baseURL";
 import {UserType, ExtendedUserType} from "@/types/user-types";
 
 const register = (credentials: UserType) => {

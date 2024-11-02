@@ -27,7 +27,6 @@ db.serialize(() => {
       body TEXT NOT NULL,
       tagList VARCHAR(20),
       slug VARCHAR(30) NOT NULL,
-      favorited BOOLEAN DEFAULT false,
       favoritesCount INTEGER DEFAULT 0,
       authorId INTEGER NOT NULL,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -37,6 +36,24 @@ db.serialize(() => {
     (err) => {
       if (err) {
         console.error("Error creating posts table:", err.message);
+      }
+    }
+  );
+
+  db.run(
+    `
+    CREATE TABLE IF NOT EXISTS favorites (
+      id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+      userId INTEGER NOT NULL,
+      postId INTEGER NOT NULL,
+      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY(userId) REFERENCES users(id),
+      FOREIGN KEY(postId) REFERENCES posts(id)
+    )
+  `,
+    (err) => {
+      if (err) {
+        console.error("Error creating favorites table:", err.message);
       }
     }
   );
