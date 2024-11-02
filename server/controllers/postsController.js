@@ -12,7 +12,7 @@ const getPosts = (req, res) => {
     [limit, offset],
     (err, posts) => {
       if (err) {
-        console.error("Error querying database:", err.message);
+        console.error("Error querying database (SELECT POST):", err.message);
         return res.status(500).json({error: "Server error"});
       }
 
@@ -22,7 +22,10 @@ const getPosts = (req, res) => {
           [token],
           (err, user) => {
             if (err) {
-              console.error("Error querying user:", err.message);
+              console.error(
+                "Error querying database (SELECT USER):",
+                err.message
+              );
               return res.status(500).json({error: "Server error"});
             }
 
@@ -32,15 +35,16 @@ const getPosts = (req, res) => {
                 [user.id],
                 (err, favorites) => {
                   if (err) {
-                    console.error("Error fetching favorites:", err.message);
+                    console.error(
+                      "Error querying database (SELECT FAVORITE POST):",
+                      err.message
+                    );
                     return res.status(500).json({error: "Server error"});
                   }
 
                   const userFavorites = new Set(
                     favorites.map((fav) => fav.postId)
                   );
-
-                  console.log("userFavorites", userFavorites);
 
                   const postsWithUsers = posts.map((post) => {
                     post.tagList = post.tagList
@@ -90,8 +94,6 @@ const getPosts = (req, res) => {
             ? post.tagList.split(",").map((tag) => tag.trim())
             : [];
 
-          console.log("post", post);
-
           return {
             ...post,
             favorited: false,
@@ -113,14 +115,14 @@ const getPosts = (req, res) => {
 const createPost = (req, res) => {
   const token = req.headers.authorization;
 
-  if (!token) return res.status(401).json({error: "User not finded"});
+  if (!token) return res.status(401).json({error: "User not authorized"});
 
   db.get(
     `SELECT * FROM users WHERE token = ? LIMIT 1`,
     [token],
     (err, user) => {
       if (err) {
-        console.error("Error querying database:", err.message);
+        console.error("Error querying database (SELECT USER):", err.message);
         return res.status(500).json({error: "Server error"});
       }
 
@@ -131,13 +133,14 @@ const createPost = (req, res) => {
 
       const {title, description, body, tagList} = req.body.post;
 
-      db.get(`SELECT * FROM posts WHERE title = ?`, [title], (err, row) => {
+      db.get(`SELECT * FROM posts WHERE title = ?`, [title], (err, post) => {
         if (err) {
-          console.error("Error checking post:", err.message);
+          console.error("Error checking post (SELECT POST):", err.message);
           return res.status(500).json({error: "Server error"});
         }
 
-        if (row) {
+        if (post) {
+          console.error("Change the post title:", err.message);
           return res.status(400).json({error: "Change the post title"});
         }
 
@@ -148,7 +151,7 @@ const createPost = (req, res) => {
           [title, description, body, tagList.join(", "), slug, user.id],
           function (err) {
             if (err) {
-              console.error("Error inserting post:", err.message);
+              console.error("Error inserting post (INSERT POST):", err.message);
               return res.status(500).json({error: "Server error"});
             }
 

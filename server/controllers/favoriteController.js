@@ -3,9 +3,7 @@ const db = require("../SQLiteDB/db");
 const toggleFavoritePost = (req, res) => {
   const token = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).json({error: "User not authorized"});
-  }
+  if (!token) return res.status(401).json({error: "User not authorized"});
 
   db.get(
     `SELECT * FROM users WHERE token = ? LIMIT 1`,
