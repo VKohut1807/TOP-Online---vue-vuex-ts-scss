@@ -4,13 +4,13 @@ const {USER_DEF_IMAGE} = require("../constants");
 const registerUser = (req, res) => {
   const {username, email, password} = req.body.user;
 
-  db.get(`SELECT * FROM users WHERE email = ?`, [email], (err, row) => {
+  db.get(`SELECT * FROM users WHERE email = ?`, [email], (err, user_email) => {
     if (err) {
-      console.error("Error checking user:", err.message);
+      console.error("Error querying database (SELECT USER):", err.message);
       return res.status(500).json({error: "Server error"});
     }
 
-    if (row) {
+    if (user_email) {
       return res.status(400).json({error: "Email already in use"});
     }
 
@@ -19,7 +19,7 @@ const registerUser = (req, res) => {
       [username, email, password],
       function (err) {
         if (err) {
-          console.error("Error inserting user:", err.message);
+          console.error("Error querying database (INSERT USER):", err.message);
           return res.status(500).json({error: "Server error"});
         }
 
@@ -31,7 +31,7 @@ const registerUser = (req, res) => {
           function (err) {
             if (err) {
               console.error(
-                "Error updating user with access token:",
+                "Error querying database (UPDATE USER):",
                 err.message
               );
               return res.status(500).json({error: "Server error"});
@@ -61,29 +61,31 @@ const loginUser = (req, res) => {
   db.get(
     `SELECT * FROM users WHERE email = ? LIMIT 1`,
     [email],
-    (err, user_db) => {
+    (err, user) => {
       if (err) {
-        console.error("Error checking user:", err.message);
+        console.error("Error querying database (UPDATE USER):", err.message);
         return res.status(500).json({error: "Server error"});
       }
 
-      if (!user_db) {
-        return res.status(404).json({error: "User with this email not found"});
+      if (!user) {
+        console.error("User not found");
+        return res.status(404).json({error: "User not found"});
       }
 
-      if (user_db.password !== password) {
+      if (user.password !== password) {
+        console.error("Incorrect password");
         return res.status(401).json({error: "Incorrect password"});
       }
 
       res.status(200).json({
         user: {
-          id: user_db.id,
-          username: user_db.username,
-          email: user_db.email,
-          token: user_db.token,
-          image: user_db.image,
-          bio: user_db.bio,
-          password: user_db.password,
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          token: user.token,
+          image: user.image,
+          bio: user.bio,
+          password: user.password,
         },
       });
     }
@@ -100,7 +102,7 @@ const getUser = (req, res) => {
     [token],
     (err, user) => {
       if (err) {
-        console.error("Error querying database:", err.message);
+        console.error("Error querying database (SELECT USER):", err.message);
         return res.status(500).json({error: "Server error"});
       }
 
@@ -126,7 +128,7 @@ const updateUser = (req, res) => {
     [token],
     (err, user) => {
       if (err) {
-        console.error("Error querying database:", err.message);
+        console.error("Error querying database (SELECT USER):", err.message);
         return res.status(500).json({error: "Server error"});
       }
 
@@ -167,7 +169,10 @@ const updateUser = (req, res) => {
         [...queryParams, user.id],
         function (err) {
           if (err) {
-            console.error("Error updating user:", err.message);
+            console.error(
+              "Error querying database (UPDATE USER):",
+              err.message
+            );
             return res.status(500).json({error: "Server error"});
           }
 
