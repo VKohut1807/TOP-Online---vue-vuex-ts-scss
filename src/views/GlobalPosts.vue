@@ -6,7 +6,7 @@ import TopoPopularTags from "@/components/PopularTags.vue";
 import TopoTabs from "@/components/Tabs.vue";
 
 const apiUrl: Ref<string> = ref("/api/posts");
-const apiUrlPopularTags: Ref<string> = ref("/tags");
+const apiUrlPopularTags: Ref<string> = ref("/api/tags");
 </script>
 
 <template>
