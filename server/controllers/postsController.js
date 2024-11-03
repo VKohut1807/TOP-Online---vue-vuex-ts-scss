@@ -145,10 +145,11 @@ const createPost = (req, res) => {
         }
 
         const slug = title.toLowerCase().trim().replace(/ /g, "-");
+        const uniqueTagList = [...new Set(tagList)];
 
         db.run(
           `INSERT INTO posts (title, description, body, tagList, slug, authorId) VALUES (?, ?, ?, ?, ?, ?)`,
-          [title, description, body, tagList.join(", "), slug, user.id],
+          [title, description, body, uniqueTagList.join(", "), slug, user.id],
           function (err) {
             if (err) {
               console.error("Error inserting post (INSERT POST):", err.message);
@@ -156,14 +157,70 @@ const createPost = (req, res) => {
             }
 
             const createdAt = new Date().toISOString();
+            const postId = this.lastID;
+
+            uniqueTagList.forEach((unic_tag) => {
+              db.get(
+                `SELECT * FROM tags WHERE name = ?`,
+                [unic_tag],
+                (err, tag) => {
+                  if (err) {
+                    console.error(
+                      "Error querying database (SELECT TAG):",
+                      err.message
+                    );
+                    return res.status(500).json({error: "Server error"});
+                  }
+
+                  if (tag) {
+                    const postIds = tag.postIds ? tag.postIds.split(",") : [];
+
+                    if (!postIds.includes(postId.toString())) {
+                      postIds.push(postId);
+                      const newPostIds = postIds.join(",");
+
+                      db.run(
+                        `UPDATE tags SET postIds = ?, postCount = postCount + 1 WHERE id = ?`,
+                        [newPostIds, tag.id],
+                        (err) => {
+                          if (err) {
+                            console.error(
+                              "Error querying database (UPDATE TAG):",
+                              err.message
+                            );
+                            return res
+                              .status(500)
+                              .json({error: "Server error"});
+                          }
+                        }
+                      );
+                    }
+                  } else {
+                    db.run(
+                      `INSERT INTO tags (name, postIds, postCount) VALUES (?, ?, ?)`,
+                      [unic_tag, postId, 1],
+                      (err) => {
+                        if (err) {
+                          console.error(
+                            "Error querying database (INSERT TAG):",
+                            err.message
+                          );
+                          return res.status(500).json({error: "Server error"});
+                        }
+                      }
+                    );
+                  }
+                }
+              );
+            });
 
             res.status(201).json({
               post: {
-                id: this.lastID,
+                id: postId,
                 title: title,
                 description: description,
                 body: body,
-                tagList: tagList,
+                tagList: uniqueTagList,
                 slug: slug,
                 favorited: false,
                 favoritesCount: 0,

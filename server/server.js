@@ -7,6 +7,7 @@ const {HTTP_PORT} = require("./constants");
 const authRoutes = require("./routes/authRoutes");
 const postsRoutes = require("./routes/postsRoutes");
 const favoriteRoutes = require("./routes/favoriteRoutes");
+const popularTagsRoutes = require("./routes/popularTagsRoutes");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use("/api/user", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/posts", favoriteRoutes);
+app.use("/api/tags", popularTagsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({error: "Route not found"});

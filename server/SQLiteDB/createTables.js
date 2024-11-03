@@ -41,19 +41,31 @@ db.serialize(() => {
   );
 
   db.run(
-    `
-    CREATE TABLE IF NOT EXISTS favorites (
+    `CREATE TABLE IF NOT EXISTS favorites (
       id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
       userId INTEGER NOT NULL,
       postId INTEGER NOT NULL,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY(userId) REFERENCES users(id),
       FOREIGN KEY(postId) REFERENCES posts(id)
-    )
-  `,
+    )`,
     (err) => {
       if (err) {
         console.error("Error creating favorites table:", err.message);
+      }
+    }
+  );
+
+  db.run(
+    `CREATE TABLE IF NOT EXISTS tags (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      postIds VARCHAR(20) NOT NULL,  
+      postCount INTEGER DEFAULT 0
+    )`,
+    (err) => {
+      if (err) {
+        console.error("Error creating tags table:", err.message);
       }
     }
   );
