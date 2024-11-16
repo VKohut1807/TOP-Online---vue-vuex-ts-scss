@@ -1,5 +1,50 @@
 const db = require("../SQLiteDB/db");
 
+const getPost = (req, res) => {
+  const slug = req.params.slug;
+
+  db.get(`SELECT * FROM posts WHERE slug = ? LIMIT 1`, [slug], (err, post) => {
+    if (err) {
+      console.error("Error querying database (SELECT POST):", err.message);
+      return res.status(500).json({error: "Server error"});
+    }
+
+    if (!post) {
+      console.error("Post not found");
+      return res.status(404).json({error: "Post not found"});
+    }
+
+    db.get(
+      `SELECT id, username, email, image FROM users WHERE id = ? LIMIT 1`,
+      [post.authorId],
+      (err, author) => {
+        if (err) {
+          console.error(
+            "Error querying database (SELECT AUTHOR):",
+            err.message
+          );
+          return res.status(500).json({error: "Server error"});
+        }
+
+        const postWithUser = {
+          ...post,
+          tagList: post.tagList
+            ? post.tagList.split(",").map((tag) => tag.trim())
+            : [],
+          author: {
+            id: author.id,
+            username: author.username,
+            email: author.email,
+            image: author.image,
+          },
+        };
+
+        res.status(200).json({post: postWithUser});
+      }
+    );
+  });
+};
+
 const getPosts = (req, res) => {
   const {limit, offset} = req.query;
   const token = req.headers.authorization;
@@ -235,4 +280,4 @@ const createPost = (req, res) => {
   );
 };
 
-module.exports = {createPost, getPosts};
+module.exports = {createPost, getPosts, getPost};

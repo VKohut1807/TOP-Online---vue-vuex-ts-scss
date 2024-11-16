@@ -68,6 +68,7 @@ onMounted(() => {
               v-model="user.password"
               type="password"
               placeholder="Password"
+              autocomplete="current-password"
               :class="{empty: inputError.includes('password')}"
             />
           </div>

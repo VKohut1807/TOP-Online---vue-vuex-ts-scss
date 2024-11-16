@@ -105,11 +105,18 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 4rem;
+    background-color: $secondary_20;
+    padding: 1rem;
+    border-radius: 0.5rem;
 
     .head-post {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+
+      @include break("xs") {
+        flex-wrap: wrap;
+      }
 
       .title {
         font-size: 2.8rem;
